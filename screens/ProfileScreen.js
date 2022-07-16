@@ -23,6 +23,7 @@ import { Fetch } from 'react-request';
 
 const ProfileScreen = props => {
   const { theme } = props;
+  const { navigation } = props;
 
   const [showList, setShowList] = React.useState(false);
 
@@ -41,6 +42,13 @@ const ProfileScreen = props => {
             </Text>
           </Touchable>
           <IconButton
+            onPress={() => {
+              try {
+                navigation.navigate('SettingsScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             icon={'Ionicons/ios-settings-outline'}
             size={24}
             color={theme.colors.strong}
@@ -86,6 +94,13 @@ const ProfileScreen = props => {
         <Spacer top={8} right={32} bottom={8} left={32} />
         <View>
           <IconButton
+            onPress={() => {
+              try {
+                navigation.navigate('InboxScreen_nUFQ9fGj');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             icon={'MaterialIcons/messenger-outline'}
             size={24}
             color={theme.colors.strong}

@@ -1,4 +1,6 @@
 import React from 'react';
+import * as RestAPISupabaseApi from '../apis/RestAPISupabaseApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import {
   ButtonSolid,
   Link,
@@ -11,6 +13,11 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const LoginScreen = props => {
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
+
   const { theme } = props;
   const { navigation } = props;
 
@@ -27,6 +34,9 @@ const LoginScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+
+  const [LoginPasswordInput, setLoginPasswordInput] = React.useState('');
+  const [loginEmailInput, setLoginEmailInput] = React.useState('');
 
   return (
     <ScreenContainer>
@@ -46,12 +56,19 @@ const LoginScreen = props => {
             {null}
           </Text>
           <TextInput
+            onChangeText={newEmailInputValue => {
+              try {
+                setLoginEmailInput(newEmailInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputmO,
               { borderColor: theme.colors.lightInverse },
             ]}
             placeholder={'Email'}
-            value={null}
+            value={loginEmailInput}
             keyboardType={'email-address'}
             textContentType={'emailAddress'}
             autoCapitalize={'none'}
@@ -59,17 +76,51 @@ const LoginScreen = props => {
           />
           <Spacer top={12} right={8} bottom={12} left={8} />
           <TextInput
+            onChangeText={newPasswordInputValue => {
+              try {
+                setLoginPasswordInput(newPasswordInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputtj,
               { borderColor: theme.colors.lightInverse },
             ]}
-            value={null}
+            value={LoginPasswordInput}
             placeholder={'Password'}
             secureTextEntry={true}
             placeholderTextColor={theme.colors.lightInverse}
           />
           <Spacer top={24} right={8} bottom={24} left={8} />
           <ButtonSolid
+            onPress={async () => {
+              try {
+                const loginResponseJson = await RestAPISupabaseApi.loginPOST(
+                  Constants,
+                  {
+                    signupEmail: loginEmailInput,
+                    signupPassword: LoginPasswordInput,
+                  }
+                );
+                const accessToken = loginResponseJson['access_token'];
+                const message = loginResponseJson['error_description'];
+                setGlobalVariableValue({
+                  key: 'ERROR_MESSAGE',
+                  value: message,
+                });
+                if (!accessToken) {
+                  return;
+                }
+                setGlobalVariableValue({
+                  key: 'AUTHORIZATION_HEADER',
+                  value: 'Bearer ' + accessToken,
+                });
+                navigation.navigate('ProfileScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.ButtonSolidiS,
               { backgroundColor: theme.colors.primary },

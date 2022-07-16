@@ -21,6 +21,7 @@ import { Fetch } from 'react-request';
 
 const InboxScreen_nUFQ9fGj = props => {
   const { theme } = props;
+  const { navigation } = props;
 
   const [showList, setShowList] = React.useState(false);
 
@@ -35,6 +36,13 @@ const InboxScreen_nUFQ9fGj = props => {
         <View style={[styles.Viewne, { borderRadius: 8 }]}>
           <View style={styles.ViewlO}>
             <IconButton
+              onPress={() => {
+                try {
+                  navigation.goBack();
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
               icon={'AntDesign/left'}
               size={24}
               color={theme.colors.strong}

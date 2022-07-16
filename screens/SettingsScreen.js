@@ -1,8 +1,11 @@
 import React from 'react';
+import * as RestAPISupabaseApi from '../apis/RestAPISupabaseApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import {
   ButtonOutline,
   Divider,
   Icon,
+  IconButton,
   ScreenContainer,
   Spacer,
   Switch,
@@ -12,14 +15,31 @@ import {
 import { StyleSheet, Text, View } from 'react-native';
 
 const SettingsScreen = props => {
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
+
   const { theme } = props;
+  const { navigation } = props;
 
   const [starRatingValue, setStarRatingValue] = React.useState('');
 
   return (
     <ScreenContainer scrollable={true} hasSafeArea={true}>
       <View style={styles.View_5P}>
-        <Icon name={'AntDesign/left'} size={24} />
+        <IconButton
+          onPress={() => {
+            try {
+              navigation.navigate('ProfileScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          icon={'AntDesign/left'}
+          size={24}
+          color={theme.colors.strong}
+        />
         <Spacer top={8} right={8} bottom={8} left={8} />
         <Text style={[styles.TextPs, { color: theme.colors.strong }]}>
           {'Settings'}
@@ -230,7 +250,22 @@ const SettingsScreen = props => {
           />
         </Touchable>
       </View>
-      <ButtonOutline style={styles.ButtonOutlinefM} title={'Sign Out'} />
+      <ButtonOutline
+        onPress={async () => {
+          try {
+            await RestAPISupabaseApi.logoutPOST(Constants);
+            setGlobalVariableValue({
+              key: 'AUTHORIZATION_HEADER',
+              value: '',
+            });
+            navigation.navigate('WelcomeScreen');
+          } catch (err) {
+            console.error(err);
+          }
+        }}
+        style={styles.ButtonOutlinefM}
+        title={'Sign Out'}
+      />
       <View
         style={[
           styles.ViewG9,

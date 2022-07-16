@@ -1,4 +1,6 @@
 import React from 'react';
+import * as RestAPISupabaseApi from '../apis/RestAPISupabaseApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import {
   ButtonSolid,
   Link,
@@ -11,6 +13,11 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const SignupScreen = props => {
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
+
   const { theme } = props;
   const { navigation } = props;
 
@@ -27,6 +34,11 @@ const SignupScreen = props => {
       console.error(err);
     }
   }, [isFocused]);
+
+  const [emailInput, setEmailInput] = React.useState('');
+  const [firstNameInput, setFirstNameInput] = React.useState('');
+  const [lastNameInput, setLastNameInput] = React.useState('');
+  const [passwordInput, setPasswordInput] = React.useState('');
 
   return (
     <ScreenContainer>
@@ -46,34 +58,55 @@ const SignupScreen = props => {
             {null}
           </Text>
           <TextInput
+            onChangeText={newFirstNameInputValue => {
+              try {
+                setFirstNameInput(newFirstNameInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputHv,
               { borderColor: theme.colors.lightInverse },
             ]}
             placeholder={'First Name'}
-            value={null}
+            value={firstNameInput}
             autoCapitalize={'words'}
             placeholderTextColor={theme.colors.lightInverse}
           />
           <Spacer top={12} right={8} bottom={12} left={8} />
           <TextInput
+            onChangeText={newLastNameInputValue => {
+              try {
+                setLastNameInput(newLastNameInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputoa,
               { borderColor: theme.colors.lightInverse },
             ]}
             placeholder={'Last Name'}
-            value={null}
+            value={lastNameInput}
             autoCapitalize={'words'}
             placeholderTextColor={theme.colors.lightInverse}
           />
           <Spacer top={12} right={8} bottom={12} left={8} />
           <TextInput
+            onChangeText={newEmailInputValue => {
+              try {
+                setEmailInput(newEmailInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputsw,
               { borderColor: theme.colors.lightInverse },
             ]}
             placeholder={'Your@email.com'}
-            value={null}
+            value={emailInput}
             autoCapitalize={'none'}
             keyboardType={'email-address'}
             textContentType={'emailAddress'}
@@ -81,12 +114,19 @@ const SignupScreen = props => {
           />
           <Spacer top={12} right={8} bottom={8} left={8} />
           <TextInput
+            onChangeText={newPasswordInputValue => {
+              try {
+                setPasswordInput(newPasswordInputValue);
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.TextInputtx,
               { borderColor: theme.colors.lightInverse },
             ]}
             placeholder={'New password'}
-            value={null}
+            value={passwordInput}
             secureTextEntry={true}
             autoCapitalize={'none'}
             textContentType={'password'}
@@ -94,6 +134,28 @@ const SignupScreen = props => {
           />
           <Spacer top={24} right={8} bottom={24} left={8} />
           <ButtonSolid
+            onPress={async () => {
+              try {
+                const signupResponseJson = await RestAPISupabaseApi.signupPOST(
+                  Constants,
+                  { signupEmail: emailInput, signupPassword: passwordInput }
+                );
+                const message = signupResponseJson.msg;
+                setGlobalVariableValue({
+                  key: 'ERROR_MESSAGE',
+                  value: message,
+                });
+                if (false) {
+                  return;
+                }
+                if (false) {
+                  return;
+                }
+                navigation.navigate('LoginScreen');
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             style={[
               styles.ButtonSolid_7S,
               { backgroundColor: theme.colors.primary },

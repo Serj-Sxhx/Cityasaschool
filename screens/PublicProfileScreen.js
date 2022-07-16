@@ -33,7 +33,7 @@ const PublicProfileScreen = props => {
           <View>
             <IconButton
               icon={'Feather/share'}
-              size={32}
+              size={24}
               color={theme.colors.strong}
             />
           </View>
