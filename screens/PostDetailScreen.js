@@ -55,7 +55,7 @@ const PostDetailScreen = props => {
                         <IconButton
                           icon={'AntDesign/left'}
                           size={24}
-                          color={theme.colors.strong}
+                          color={theme.colors.dark}
                         />
                       </View>
 
@@ -63,7 +63,7 @@ const PostDetailScreen = props => {
                         <IconButton
                           icon={'Feather/share'}
                           size={24}
-                          color={theme.colors.strong}
+                          color={theme.colors.dark}
                         />
                       </View>
                     </View>
@@ -80,16 +80,13 @@ const PostDetailScreen = props => {
                     size={60}
                   />
                   <Text
-                    style={[
-                      styles.TextvN,
-                      { color: theme.colors.lightInverse },
-                    ]}
+                    style={[styles.TextvN, { color: theme.colors.lightGrey }]}
                   >
                     {'[legal name]'}
                   </Text>
 
                   <Text
-                    style={[styles.TexttG, { color: theme.colors.strong }]}
+                    style={[styles.TexttG, { color: theme.colors.dark }]}
                     textBreakStrategy={'highQuality'}
                     ellipsizeMode={'tail'}
                     allowFontScaling={true}
@@ -108,9 +105,7 @@ const PostDetailScreen = props => {
                   </View>
 
                   <View>
-                    <Text
-                      style={[styles.TextC8, { color: theme.colors.strong }]}
-                    >
+                    <Text style={[styles.TextC8, { color: theme.colors.dark }]}>
                       {'What learning resources did I use?'}
                     </Text>
                     <Spacer top={6} right={8} bottom={6} left={8} />
@@ -123,7 +118,7 @@ const PostDetailScreen = props => {
                           styles.ViewVr,
                           {
                             borderRadius: 64,
-                            borderColor: theme.colors.lightInverse,
+                            borderColor: theme.colors.lightGrey,
                           },
                         ]}
                       >
@@ -150,9 +145,7 @@ const PostDetailScreen = props => {
                   </View>
                   <Spacer top={12} right={8} bottom={12} left={8} />
                   <View>
-                    <Text
-                      style={[styles.TextVS, { color: theme.colors.strong }]}
-                    >
+                    <Text style={[styles.TextVS, { color: theme.colors.dark }]}>
                       {'Collaborators'}
                     </Text>
                   </View>
@@ -164,7 +157,7 @@ const PostDetailScreen = props => {
                           styles.Viewnb,
                           {
                             borderRadius: 64,
-                            borderColor: theme.colors.lightInverse,
+                            borderColor: theme.colors.lightGrey,
                           },
                         ]}
                       >
@@ -191,9 +184,7 @@ const PostDetailScreen = props => {
                   </View>
                   <Spacer top={12} right={8} bottom={12} left={8} />
                   <View>
-                    <Text
-                      style={[styles.TextPD, { color: theme.colors.strong }]}
-                    >
+                    <Text style={[styles.TextPD, { color: theme.colors.dark }]}>
                       {'Mentors'}
                     </Text>
                   </View>
@@ -205,7 +196,7 @@ const PostDetailScreen = props => {
                           styles.ViewXA,
                           {
                             borderRadius: 64,
-                            borderColor: theme.colors.lightInverse,
+                            borderColor: theme.colors.lightGrey,
                           },
                         ]}
                       >
@@ -232,15 +223,15 @@ const PostDetailScreen = props => {
                   </View>
                   <Spacer top={12} right={8} bottom={12} left={8} />
                   <View>
-                    <Text style={{ color: theme.colors.lightInverse }}>
+                    <Text style={{ color: theme.colors.lightGrey }}>
                       {'08:24'}
                     </Text>
 
-                    <Text style={{ color: theme.colors.lightInverse }}>
+                    <Text style={{ color: theme.colors.lightGrey }}>
                       {'04/09/2021 - 08/10/2021'}
                     </Text>
 
-                    <Text style={{ color: theme.colors.lightInverse }}>
+                    <Text style={{ color: theme.colors.lightGrey }}>
                       {'#this #that'}
                     </Text>
                   </View>

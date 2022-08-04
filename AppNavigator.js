@@ -8,13 +8,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import theme from './themes/DraftbitTheme.js';
 
 import AddPostScreen from './screens/AddPostScreen';
-import BlankScreen from './screens/BlankScreen';
 import CameraPermissionsScreen from './screens/CameraPermissionsScreen';
 import CompleteProfileScreen from './screens/CompleteProfileScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import InboxScreen_nUFQ9fGj from './screens/InboxScreen_nUFQ9fGj';
 import LoginScreen from './screens/LoginScreen';
+import OnboardingScreen from './screens/OnboardingScreen';
 import PostDetailScreen from './screens/PostDetailScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import PublicProfileScreen from './screens/PublicProfileScreen';
@@ -84,7 +84,7 @@ function BottomTabNavigator() {
 export default function RootAppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ProfileScreen">
+      <Stack.Navigator headerMode="none" initialRouteName="ProfileScreen">
         <Stack.Screen
           name="EditProfileScreen"
           component={EditProfileScreen}
@@ -151,9 +151,9 @@ export default function RootAppNavigator() {
           options={{ title: 'Complete Profile' }}
         />
         <Stack.Screen
-          name="BlankScreen"
-          component={BlankScreen}
-          options={{ title: 'Blank' }}
+          name="OnboardingScreen"
+          component={OnboardingScreen}
+          options={{ title: 'onboarding' }}
         />
         <Stack.Screen
           name="BottomTabNavigator"

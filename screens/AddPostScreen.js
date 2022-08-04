@@ -3,19 +3,22 @@ import {
   ButtonSolid,
   DatePicker,
   Icon,
+  IconButton,
   ScreenContainer,
   Spacer,
   Switch,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Fetch } from 'react-request';
 
 const AddPostScreen = props => {
   const { theme } = props;
 
   const [datePickerValue, setDatePickerValue] = React.useState(new Date());
+  const [postImages, setPostImages] = React.useState([]);
   const [switchValue, setSwitchValue] = React.useState(false);
   const [switchValue2, setSwitchValue2] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
@@ -31,10 +34,16 @@ const AddPostScreen = props => {
         extraScrollHeight={72}
       >
         <View style={styles.ViewaF}>
-          <Icon name={'AntDesign/left'} size={24} />
-          <Text style={[styles.TextBi, { color: theme.colors.strong }]}>
-            {'Add a learning experience'}
-          </Text>
+          <View style={styles.ViewmM}>
+            <IconButton
+              icon={'Feather/x'}
+              size={24}
+              color={theme.colors.dark}
+            />
+            <Text style={[styles.TextBi, { color: theme.colors.dark }]}>
+              {'Add a learning experience'}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.Viewih}>
@@ -56,7 +65,7 @@ const AddPostScreen = props => {
                   console.error(err);
                 }
               }}
-              style={[styles.TextInputOb, { color: theme.colors.strong }]}
+              style={[styles.TextInputOb, { color: theme.colors.dark }]}
               value={null}
               placeholder={'you@domain.tld'}
               keyboardType={'email-address'}
@@ -141,16 +150,12 @@ const AddPostScreen = props => {
                   console.error(err);
                 }
               }}
-              style={[styles.TextInputJB, { color: theme.colors.strong }]}
+              style={[styles.TextInputJB, { color: theme.colors.dark }]}
               value={null}
               placeholder={'you@domain.tld'}
               keyboardType={'email-address'}
             />
           </View>
-
-          <Text style={[styles.Textrf, { color: theme.colors.medium }]}>
-            {'Enter the email you use for work'}
-          </Text>
         </View>
         <Spacer top={12} right={8} bottom={12} left={8} />
         <View style={styles.ViewAG}>
@@ -173,7 +178,7 @@ const AddPostScreen = props => {
                     console.error(err);
                   }
                 }}
-                style={[styles.TextInputBG, { color: theme.colors.strong }]}
+                style={[styles.TextInputBG, { color: theme.colors.dark }]}
                 value={null}
                 placeholder={'19.99'}
                 keyboardType={'decimal-pad'}
@@ -202,7 +207,7 @@ const AddPostScreen = props => {
                     console.error(err);
                   }
                 }}
-                style={[styles.TextInputdI, { color: theme.colors.strong }]}
+                style={[styles.TextInputdI, { color: theme.colors.dark }]}
                 value={null}
                 placeholder={'7214-998-5419'}
                 keyboardType={'numbers-and-punctuation'}
@@ -213,7 +218,7 @@ const AddPostScreen = props => {
         <Spacer top={12} right={8} bottom={12} left={8} />
         <View>
           <Text style={[styles.TextTO, { color: theme.colors.medium }]}>
-            {'Describe Your Project'}
+            {'Describe Your Experience'}
           </Text>
 
           <View
@@ -231,11 +236,12 @@ const AddPostScreen = props => {
                     console.error(err);
                   }
                 }}
-                style={[styles.TextInputkJ, { color: theme.colors.strong }]}
+                style={[styles.TextInputkJ, { color: theme.colors.dark }]}
+                placeholder={'...'}
                 value={null}
-                placeholder={'99.99'}
                 keyboardType={'decimal-pad'}
                 multiline={true}
+                numberOfLines={6}
               />
             </View>
           </View>
@@ -275,7 +281,7 @@ const AddPostScreen = props => {
                     console.error(err);
                   }
                 }}
-                style={[styles.TextInputSV, { color: theme.colors.strong }]}
+                style={[styles.TextInputSV, { color: theme.colors.dark }]}
                 value={null}
                 placeholder={'Enter a value...'}
               />
@@ -293,16 +299,30 @@ const AddPostScreen = props => {
           <Touchable style={styles.Touchableda}>
             <View style={styles.Viewzf}>
               <Icon name={'Ionicons/add'} size={24} />
-              <Text style={[styles.TextAG, { color: theme.colors.strong }]}>
+              <Text style={[styles.TextAG, { color: theme.colors.dark }]}>
                 {'Images'}
               </Text>
             </View>
           </Touchable>
         </View>
 
+        <View>
+          <FlatList
+            data={[]}
+            listKey={'0YI6gcnw'}
+            keyExtractor={({ item }) => item?.id || item?.uuid || item}
+            renderItem={({ item }) => {
+              const listData = item;
+              return null;
+            }}
+            contentContainerStyle={styles.FlatList_0YContent}
+            numColumns={1}
+          />
+        </View>
+
         <View style={styles.Viewbl}>
-          <Text style={[styles.TextRi, { color: theme.colors.strong }]}>
-            {'Publish To Portfolio'}
+          <Text style={[styles.TextRi, { color: theme.colors.dark }]}>
+            {'Post To Public Portfolio'}
           </Text>
           <Switch
             onValueChange={newSwitchValue => {
@@ -315,13 +335,28 @@ const AddPostScreen = props => {
             value={switchValue2}
           />
         </View>
-        <ButtonSolid
-          style={[
-            styles.ButtonSolidam,
-            { backgroundColor: theme.colors.primary },
-          ]}
-          title={'Publish Publicly'}
-        />
+        <>
+          {!switchValue2 ? null : (
+            <ButtonSolid
+              style={[
+                styles.ButtonSolidam,
+                { backgroundColor: theme.colors.primary },
+              ]}
+              title={'Post Publicly'}
+            />
+          )}
+        </>
+        <>
+          {switchValue2 ? null : (
+            <ButtonSolid
+              style={[
+                styles.ButtonSolidHH,
+                { backgroundColor: theme.colors.primary },
+              ]}
+              title={'Add To History'}
+            />
+          )}
+        </>
       </KeyboardAwareScrollView>
     </ScreenContainer>
   );
@@ -334,12 +369,17 @@ const styles = StyleSheet.create({
     fontFamily: 'System',
     fontWeight: '600',
   },
+  ViewmM: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   ViewaF: {
     flexDirection: 'row',
     alignContent: 'center',
     paddingTop: 0,
     paddingBottom: 16,
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   Textch: {
     fontSize: 14,
@@ -435,12 +475,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
-    marginTop: 4,
-  },
-  Textrf: {
-    fontFamily: 'System',
-    fontWeight: '400',
-    fontSize: 12,
     marginTop: 4,
   },
   ViewGD: {
@@ -596,6 +630,13 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     height: 30,
   },
+  FlatList_0YContent: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  FetchSG: {
+    minHeight: 40,
+  },
   TextRi: {
     fontFamily: 'System',
     fontWeight: '600',
@@ -607,6 +648,13 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
   },
   ButtonSolidam: {
+    borderRadius: 8,
+    fontFamily: 'System',
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: 16,
+  },
+  ButtonSolidHH: {
     borderRadius: 8,
     fontFamily: 'System',
     fontWeight: '700',

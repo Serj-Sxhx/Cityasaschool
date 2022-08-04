@@ -25,11 +25,11 @@ const WelcomeScreen = props => {
             source={Images.LogoOnboardingCAS}
             resizeMode={'cover'}
           />
-          <Text style={[styles.TextAJ, { color: theme.colors.strong }]}>
+          <Text style={[styles.TextAJ, { color: theme.colors.dark }]}>
             {'CITY AS A SCHOOL'}
           </Text>
 
-          <Text style={[styles.Text_83, { color: theme.colors.strong }]}>
+          <Text style={[styles.Text_83, { color: theme.colors.dark }]}>
             {
               'Build projects within hybrid communities, track your achievements in a customisable portfolio, and accelerate your career.'
             }
@@ -91,6 +91,8 @@ const styles = StyleSheet.create({
     fontFamily: 'System',
     fontWeight: '400',
     fontSize: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   Viewd6: {
     alignItems: 'center',

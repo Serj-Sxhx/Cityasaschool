@@ -14,7 +14,12 @@ import DraftbitTheme from './themes/DraftbitTheme.js';
 import cacheAssetsAsync from './config/cacheAssetsAsync';
 import { GlobalVariableProvider } from './config/GlobalVariableContext';
 import { useFonts } from 'expo-font';
-import { Inter_700Bold } from '@expo-google-fonts/inter';
+import {
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter';
+import { Montserrat_400Regular } from '@expo-google-fonts/montserrat';
 import {
   Poppins_400Regular,
   Poppins_500Medium,
@@ -35,7 +40,10 @@ const queryClient = new QueryClient();
 const App = () => {
   const [isReady, setIsReady] = React.useState(false);
   const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_600SemiBold,
     Inter_700Bold,
+    Montserrat_400Regular,
     Poppins_400Regular,
     Poppins_400Regular,
     Poppins_400Regular,

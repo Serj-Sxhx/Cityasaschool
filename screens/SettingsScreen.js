@@ -38,16 +38,16 @@ const SettingsScreen = props => {
           }}
           icon={'AntDesign/left'}
           size={24}
-          color={theme.colors.strong}
+          color={theme.colors.dark}
         />
         <Spacer top={8} right={8} bottom={8} left={8} />
-        <Text style={[styles.TextPs, { color: theme.colors.strong }]}>
+        <Text style={[styles.TextPs, { color: theme.colors.dark }]}>
           {'Settings'}
         </Text>
       </View>
 
       <View style={styles.ViewCo}>
-        <Text style={[styles.TextCC, { color: theme.colors.strong }]}>
+        <Text style={[styles.TextCC, { color: theme.colors.dark }]}>
           {'Account'}
         </Text>
 
@@ -55,7 +55,7 @@ const SettingsScreen = props => {
           <View style={styles.Viewrl}>
             <View style={styles.Viewrm}>
               <Text
-                style={[styles.TextD1, { color: theme.colors.strong }]}
+                style={[styles.TextD1, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -67,7 +67,7 @@ const SettingsScreen = props => {
             <View style={styles.Viewg7}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.strong}
+                color={theme.colors.dark}
                 size={24}
               />
             </View>
@@ -78,7 +78,7 @@ const SettingsScreen = props => {
           <View style={styles.View_7t}>
             <View style={styles.Viewbk}>
               <Text
-                style={[styles.TextEe, { color: theme.colors.strong }]}
+                style={[styles.TextEe, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -90,7 +90,7 @@ const SettingsScreen = props => {
             <View style={styles.ViewwI}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.strong}
+                color={theme.colors.dark}
                 size={24}
               />
             </View>
@@ -102,7 +102,7 @@ const SettingsScreen = props => {
           />
         </Touchable>
 
-        <Text style={[styles.Textch, { color: theme.colors.strong }]}>
+        <Text style={[styles.Textch, { color: theme.colors.dark }]}>
           {'Help'}
         </Text>
 
@@ -110,7 +110,7 @@ const SettingsScreen = props => {
           <View style={styles.ViewHR}>
             <View style={styles.ViewiD}>
               <Text
-                style={[styles.TextxJ, { color: theme.colors.strong }]}
+                style={[styles.TextxJ, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -122,7 +122,7 @@ const SettingsScreen = props => {
             <View style={styles.Viewg8}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.strong}
+                color={theme.colors.dark}
                 size={24}
               />
             </View>
@@ -132,7 +132,7 @@ const SettingsScreen = props => {
             <View style={styles.Viewh1}>
               <View style={styles.Viewgx}>
                 <Text
-                  style={[styles.TextUt, { color: theme.colors.strong }]}
+                  style={[styles.TextUt, { color: theme.colors.dark }]}
                   allowFontScaling={true}
                   ellipsizeMode={'tail'}
                   textBreakStrategy={'highQuality'}
@@ -144,7 +144,7 @@ const SettingsScreen = props => {
               <View style={styles.ViewbY}>
                 <Icon
                   name={'MaterialIcons/chevron-right'}
-                  color={theme.colors.strong}
+                  color={theme.colors.dark}
                   size={24}
                 />
               </View>
@@ -157,12 +157,12 @@ const SettingsScreen = props => {
           </Touchable>
         </Touchable>
 
-        <Text style={[styles.Textaz, { color: theme.colors.strong }]}>
+        <Text style={[styles.Textaz, { color: theme.colors.dark }]}>
           {'Permissions'}
         </Text>
 
         <View style={styles.Viewag}>
-          <Text style={[styles.TextxP, { color: theme.colors.strong }]}>
+          <Text style={[styles.TextxP, { color: theme.colors.dark }]}>
             {'Everyone can reply to you'}
           </Text>
           <Switch
@@ -180,12 +180,12 @@ const SettingsScreen = props => {
           height={1}
           color={theme.colors.divider}
         />
-        <Text style={[styles.TextoZ, { color: theme.colors.strong }]}>
+        <Text style={[styles.TextoZ, { color: theme.colors.dark }]}>
           {'Email Notifications'}
         </Text>
 
         <View style={styles.ViewKW}>
-          <Text style={[styles.TextLi, { color: theme.colors.strong }]}>
+          <Text style={[styles.TextLi, { color: theme.colors.dark }]}>
             {'Tagged in a post'}
           </Text>
           <Switch
@@ -200,7 +200,7 @@ const SettingsScreen = props => {
         </View>
 
         <View style={styles.ViewIz}>
-          <Text style={[styles.TextMo, { color: theme.colors.strong }]}>
+          <Text style={[styles.TextMo, { color: theme.colors.dark }]}>
             {'New replies'}
           </Text>
           <Switch
@@ -218,7 +218,7 @@ const SettingsScreen = props => {
           height={1}
           color={theme.colors.divider}
         />
-        <Text style={[styles.Textqz, { color: theme.colors.strong }]}>
+        <Text style={[styles.Textqz, { color: theme.colors.dark }]}>
           {'Export'}
         </Text>
 
@@ -226,7 +226,7 @@ const SettingsScreen = props => {
           <View style={styles.Viewre}>
             <View style={styles.ViewGR}>
               <Text
-                style={[styles.TextKj, { color: theme.colors.strong }]}
+                style={[styles.TextKj, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -238,7 +238,7 @@ const SettingsScreen = props => {
             <View style={styles.ViewLm}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.strong}
+                color={theme.colors.dark}
                 size={24}
               />
             </View>

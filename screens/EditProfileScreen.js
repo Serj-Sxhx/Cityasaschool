@@ -4,6 +4,7 @@ import * as Utils from '../utils';
 import {
   ButtonSolid,
   CircleImage,
+  DatePicker,
   Icon,
   IconButton,
   ScreenContainer,
@@ -18,6 +19,7 @@ const EditProfileScreen = props => {
   const { theme } = props;
 
   const [checkboxValue, setCheckboxValue] = React.useState(false);
+  const [datePickerValue, setDatePickerValue] = React.useState(new Date());
 
   return (
     <ScreenContainer style={styles.screen} hasSafeArea={true}>
@@ -26,10 +28,10 @@ const EditProfileScreen = props => {
           <View style={styles.ViewA7}>
             <IconButton
               icon={'AntDesign/left'}
-              size={32}
-              color={theme.colors.strong}
+              size={24}
+              color={theme.colors.dark}
             />
-            <Text style={[styles.Textfg, { color: theme.colors.strong }]}>
+            <Text style={[styles.Textfg, { color: theme.colors.dark }]}>
               {'Edit Profile'}
             </Text>
           </View>
@@ -66,72 +68,127 @@ const EditProfileScreen = props => {
 
         <View style={styles.View_6X}>
           <View>
-            <Text style={[styles.TextoZ, { color: theme.colors.strong }]}>
+            <Text style={[styles.TextoZ, { color: theme.colors.dark }]}>
               {'First Name'}
             </Text>
             <TextInput
               style={[
                 styles.TextInput_80,
-                { borderColor: theme.colors.lightInverse },
+                { borderColor: theme.colors.lightGrey },
               ]}
               placeholder={'First Name'}
               value={null}
               autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightInverse}
+              placeholderTextColor={theme.colors.lightGrey}
             />
           </View>
           <Spacer top={12} right={8} bottom={12} left={8} />
           <View>
-            <Text style={[styles.TextzL, { color: theme.colors.strong }]}>
+            <Text style={[styles.TextzL, { color: theme.colors.dark }]}>
               {'Last Name'}
             </Text>
             <TextInput
               style={[
                 styles.TextInputHw,
-                { borderColor: theme.colors.lightInverse },
+                { borderColor: theme.colors.lightGrey },
               ]}
               value={null}
               placeholder={'Name'}
               autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightInverse}
+              placeholderTextColor={theme.colors.lightGrey}
             />
           </View>
           <Spacer top={16} right={8} bottom={16} left={8} />
           <View>
-            <Text style={[styles.TextWZ, { color: theme.colors.strong }]}>
+            <Text style={[styles.Textpa, { color: theme.colors.dark }]}>
               {'User Name'}
             </Text>
             <TextInput
               style={[
-                styles.TextInputGp,
-                { borderColor: theme.colors.lightInverse },
+                styles.TextInputJS,
+                { borderColor: theme.colors.lightGrey },
               ]}
               value={null}
               placeholder={'Name'}
               autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightInverse}
+              placeholderTextColor={theme.colors.lightGrey}
             />
             <Spacer top={16} right={8} bottom={16} left={8} />
           </View>
 
           <View>
-            <Text style={[styles.Text_6U, { color: theme.colors.strong }]}>
+            <Text style={[styles.Text_6b, { color: theme.colors.dark }]}>
               {'Learning Goal / Bio'}
             </Text>
             <TextInput
               style={[
-                styles.TextInputdm,
-                { borderColor: theme.colors.lightInverse },
+                styles.TextInput_3l,
+                { borderColor: theme.colors.lightGrey },
               ]}
               value={null}
               placeholder={'Name'}
               autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightInverse}
+              placeholderTextColor={theme.colors.lightGrey}
               numberOfLines={4}
               maxLength={320}
               multiline={true}
             />
             <Spacer top={12} right={8} bottom={12} left={8} />
+          </View>
+
+          <View>
+            <Text style={[styles.Text_23, { color: theme.colors.dark }]}>
+              {'Location'}
+            </Text>
+            <TextInput
+              style={[
+                styles.TextInputQT,
+                { borderColor: theme.colors.lightGrey },
+              ]}
+              value={null}
+              placeholder={'Name'}
+              autoCapitalize={'words'}
+              placeholderTextColor={theme.colors.lightGrey}
+            />
+            <Spacer top={16} right={8} bottom={16} left={8} />
+          </View>
+
+          <View>
+            <Text style={[styles.TextWZ, { color: theme.colors.dark }]}>
+              {'Birthday'}
+            </Text>
+            <DatePicker
+              onDateChange={newDatePickerValue => {
+                try {
+                  setDatePickerValue(newDatePickerValue);
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              date={datePickerValue}
+              label={'Date'}
+              mode={'date'}
+              leftIconMode={'inset'}
+              type={'solid'}
+            />
+            <Spacer top={16} right={8} bottom={16} left={8} />
+          </View>
+
+          <View>
+            <Text style={[styles.TextPi, { color: theme.colors.dark }]}>
+              {'Gender'}
+            </Text>
+            <TextInput
+              style={[
+                styles.TextInputXc,
+                { borderColor: theme.colors.lightGrey },
+              ]}
+              value={null}
+              placeholder={'Name'}
+              autoCapitalize={'words'}
+              placeholderTextColor={theme.colors.lightGrey}
+            />
+            <Spacer top={16} right={8} bottom={16} left={8} />
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -219,11 +276,11 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderRadius: 8,
   },
-  TextWZ: {
+  Textpa: {
     fontFamily: 'System',
     fontWeight: '600',
   },
-  TextInputGp: {
+  TextInputJS: {
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
@@ -234,11 +291,45 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderRadius: 8,
   },
-  Text_6U: {
+  Text_6b: {
     fontFamily: 'System',
     fontWeight: '600',
   },
-  TextInputdm: {
+  TextInput_3l: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
+    borderRadius: 8,
+  },
+  Text_23: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  TextInputQT: {
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
+    borderRadius: 8,
+  },
+  TextWZ: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  TextPi: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  TextInputXc: {
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,

@@ -45,9 +45,9 @@ const InboxScreen_nUFQ9fGj = props => {
               }}
               icon={'AntDesign/left'}
               size={24}
-              color={theme.colors.strong}
+              color={theme.colors.dark}
             />
-            <Text style={[styles.TextbA, { color: theme.colors.strong }]}>
+            <Text style={[styles.TextbA, { color: theme.colors.dark }]}>
               {'Inbox'}
             </Text>
           </View>
@@ -200,7 +200,7 @@ const InboxScreen_nUFQ9fGj = props => {
                                 <Text
                                   style={[
                                     styles.Textya,
-                                    { color: theme.colors.strong },
+                                    { color: theme.colors.dark },
                                   ]}
                                   numberOfLines={1}
                                   ellipsizeMode={'tail'}
@@ -284,7 +284,7 @@ const InboxScreen_nUFQ9fGj = props => {
                                   <Text
                                     style={[
                                       styles.TextHS,
-                                      { color: theme.colors.strong },
+                                      { color: theme.colors.dark },
                                     ]}
                                     numberOfLines={1}
                                     ellipsizeMode={'tail'}

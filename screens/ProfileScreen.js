@@ -1,5 +1,5 @@
 import React from 'react';
-import * as ExampleSavedPropertiesApi from '../apis/ExampleSavedPropertiesApi.js';
+import * as ExamplePropertiesApi from '../apis/ExamplePropertiesApi.js';
 import {
   ButtonSolid,
   CircleImage,
@@ -51,7 +51,7 @@ const ProfileScreen = props => {
             }}
             icon={'Ionicons/ios-settings-outline'}
             size={24}
-            color={theme.colors.strong}
+            color={theme.colors.dark}
           />
         </View>
       </View>
@@ -73,13 +73,13 @@ const ProfileScreen = props => {
             >
               <Icon name={'Ionicons/ios-people-circle-sharp'} size={24} />
               <Spacer top={8} right={4} bottom={8} left={4} />
-              <Text style={{ color: theme.colors.strong }}>{'667'}</Text>
+              <Text style={{ color: theme.colors.dark }}>{'667'}</Text>
             </View>
           </View>
         </View>
 
         <View>
-          <Text style={[styles.Texthh, { color: theme.colors.strong }]}>
+          <Text style={[styles.Texthh, { color: theme.colors.dark }]}>
             {'Lewis Thompson'}
           </Text>
 
@@ -103,7 +103,7 @@ const ProfileScreen = props => {
             }}
             icon={'MaterialIcons/messenger-outline'}
             size={24}
-            color={theme.colors.strong}
+            color={theme.colors.dark}
           />
         </View>
       </View>
@@ -198,199 +198,212 @@ const ProfileScreen = props => {
           </View>
         </View>
       </View>
+      <>
+        {!showList ? null : (
+          <ExamplePropertiesApi.FetchListOfPropertiesGET
+            method={'GET'}
+            limit={16}
+          >
+            {({ loading, error, data, refetchListOfProperties }) => {
+              const fetchData = data;
+              if (!fetchData || loading) {
+                return <ActivityIndicator />;
+              }
 
-      <ExampleSavedPropertiesApi.FetchSavedPropertiesGET
-        method={'GET'}
-        limit={16}
-      >
-        {({ loading, error, data, refetchSavedProperties }) => {
-          const fetchData = data;
-          if (!fetchData || loading) {
-            return <ActivityIndicator />;
-          }
+              if (error) {
+                return (
+                  <Text style={{ textAlign: 'center' }}>
+                    There was a problem fetching this data
+                  </Text>
+                );
+              }
 
-          if (error) {
-            return (
-              <Text style={{ textAlign: 'center' }}>
-                There was a problem fetching this data
-              </Text>
-            );
-          }
-
-          return (
-            <>
-              <>
-                {showList ? null : (
-                  <FlatList
-                    data={[]}
-                    listKey={'cT6lE7Si'}
-                    keyExtractor={({ item }) => item?.id || item?.uuid || item}
-                    renderItem={({ item }) => {
-                      const historyListData = item;
-                      return (
-                        <View style={styles.ViewzU}>
-                          <Touchable>
-                            <View
-                              style={[
-                                styles.ViewDa,
-                                {
-                                  borderRadius: 12,
-                                  borderColor: theme.colors.divider,
-                                  backgroundColor: theme.colors.surface,
-                                },
-                              ]}
-                            >
-                              <View style={styles.ViewOa}>
-                                <ImageBackground
-                                  style={styles.ImageBackgroundDn}
-                                  source={{
-                                    uri: `${listData?.properties?.image_url}`,
-                                  }}
-                                  resizeMode={'cover'}
-                                />
-                              </View>
-
-                              <View style={styles.ViewB1}>
-                                <Text
+              return (
+                <>
+                  <>
+                    {showList ? null : (
+                      <FlatList
+                        data={fetchData}
+                        listKey={'cT6lE7Si'}
+                        keyExtractor={({ item }) =>
+                          item?.id || item?.uuid || item
+                        }
+                        renderItem={({ item }) => {
+                          const historyListData = item;
+                          return (
+                            <View style={styles.ViewzU}>
+                              <Touchable>
+                                <View
                                   style={[
-                                    styles.Textn6,
-                                    { color: theme.colors.light },
+                                    styles.ViewDa,
+                                    {
+                                      borderRadius: 12,
+                                      borderColor: theme.colors.divider,
+                                      backgroundColor: theme.colors.surface,
+                                    },
                                   ]}
                                 >
-                                  {listData?.properties?.city}
-                                </Text>
+                                  <View style={styles.ViewOa}>
+                                    <ImageBackground
+                                      style={styles.ImageBackgroundDn}
+                                      source={{
+                                        uri: `${scheduleListData?.properties?.image_url}`,
+                                      }}
+                                      resizeMode={'cover'}
+                                    />
+                                  </View>
 
-                                <Text
-                                  style={[
-                                    styles.Textqb,
-                                    { color: theme.colors.strong },
-                                  ]}
-                                  numberOfLines={1}
-                                  ellipsizeMode={'tail'}
-                                >
-                                  {listData?.properties?.name}{' '}
-                                </Text>
-
-                                <View style={styles.View_9G}>
-                                  <Text
-                                    style={[
-                                      styles.TextzX,
-                                      { color: theme.colors.primary },
-                                    ]}
-                                  >
-                                    {'$'}
-                                    {listData?.properties?.nightly_price}
-                                  </Text>
-
-                                  <Text
-                                    style={[
-                                      styles.Textr4,
-                                      { color: theme.colors.primary },
-                                    ]}
-                                  >
-                                    {'/night'}
-                                  </Text>
-                                </View>
-                              </View>
-                            </View>
-                          </Touchable>
-                        </View>
-                      );
-                    }}
-                    contentContainerStyle={styles.FlatListcTContent}
-                    numColumns={1}
-                  />
-                )}
-              </>
-              <>
-                {!showList ? null : (
-                  <FlatList
-                    data={fetchData}
-                    listKey={'c5at3zRQ'}
-                    keyExtractor={({ item }) => item?.id || item?.uuid || item}
-                    renderItem={({ item }) => {
-                      const listData = item;
-                      return (
-                        <>
-                          <View style={styles.Vieweh}>
-                            <Touchable>
-                              <View
-                                style={[
-                                  styles.View_3W,
-                                  {
-                                    borderRadius: 12,
-                                    borderColor: theme.colors.divider,
-                                    backgroundColor: theme.colors.surface,
-                                  },
-                                ]}
-                              >
-                                <View style={styles.ViewLl}>
-                                  <ImageBackground
-                                    style={styles.ImageBackgroundn2}
-                                    source={{
-                                      uri: `${listData?.properties?.image_url}`,
-                                    }}
-                                    resizeMode={'cover'}
-                                  />
-                                </View>
-
-                                <View style={styles.ViewLZ}>
-                                  <Text
-                                    style={[
-                                      styles.Text_1n,
-                                      { color: theme.colors.light },
-                                    ]}
-                                  >
-                                    {listData?.properties?.city}
-                                  </Text>
-
-                                  <Text
-                                    style={[
-                                      styles.Textuy,
-                                      { color: theme.colors.strong },
-                                    ]}
-                                    numberOfLines={1}
-                                    ellipsizeMode={'tail'}
-                                  >
-                                    {listData?.properties?.name}{' '}
-                                  </Text>
-
-                                  <View style={styles.ViewPS}>
+                                  <View style={styles.ViewB1}>
                                     <Text
                                       style={[
-                                        styles.Textw2,
-                                        { color: theme.colors.primary },
+                                        styles.Textn6,
+                                        { color: theme.colors.light },
                                       ]}
                                     >
-                                      {'$'}
-                                      {listData?.properties?.nightly_price}
+                                      {scheduleListData?.properties?.city}
                                     </Text>
 
                                     <Text
                                       style={[
-                                        styles.Text_9O,
-                                        { color: theme.colors.primary },
+                                        styles.Textqb,
+                                        { color: theme.colors.dark },
                                       ]}
+                                      numberOfLines={1}
+                                      ellipsizeMode={'tail'}
                                     >
-                                      {'/night'}
+                                      {scheduleListData?.properties?.name}{' '}
                                     </Text>
+
+                                    <View style={styles.View_9G}>
+                                      <Text
+                                        style={[
+                                          styles.TextzX,
+                                          { color: theme.colors.primary },
+                                        ]}
+                                      >
+                                        {'$'}
+                                        {
+                                          scheduleListData?.properties
+                                            ?.nightly_price
+                                        }
+                                      </Text>
+
+                                      <Text
+                                        style={[
+                                          styles.Textr4,
+                                          { color: theme.colors.primary },
+                                        ]}
+                                      >
+                                        {'/night'}
+                                      </Text>
+                                    </View>
                                   </View>
                                 </View>
+                              </Touchable>
+                            </View>
+                          );
+                        }}
+                        contentContainerStyle={styles.FlatListcTContent}
+                        numColumns={1}
+                      />
+                    )}
+                  </>
+                  <>
+                    {!showList ? null : (
+                      <FlatList
+                        data={fetchData}
+                        listKey={'c5at3zRQ'}
+                        keyExtractor={({ item }) =>
+                          item?.id || item?.uuid || item
+                        }
+                        renderItem={({ item }) => {
+                          const scheduleListData = item;
+                          return (
+                            <>
+                              <View style={styles.Vieweh}>
+                                <Touchable>
+                                  <View
+                                    style={[
+                                      styles.View_3W,
+                                      {
+                                        borderRadius: 12,
+                                        borderColor: theme.colors.divider,
+                                        backgroundColor: theme.colors.surface,
+                                      },
+                                    ]}
+                                  >
+                                    <View style={styles.ViewLl}>
+                                      <ImageBackground
+                                        style={styles.ImageBackgroundn2}
+                                        source={{
+                                          uri: `${scheduleListData?.properties?.image_url}`,
+                                        }}
+                                        resizeMode={'cover'}
+                                      />
+                                    </View>
+
+                                    <View style={styles.ViewLZ}>
+                                      <Text
+                                        style={[
+                                          styles.Text_1n,
+                                          { color: theme.colors.light },
+                                        ]}
+                                      >
+                                        {scheduleListData?.properties?.city}
+                                      </Text>
+
+                                      <Text
+                                        style={[
+                                          styles.Textuy,
+                                          { color: theme.colors.dark },
+                                        ]}
+                                        numberOfLines={1}
+                                        ellipsizeMode={'tail'}
+                                      >
+                                        {scheduleListData?.properties?.name}{' '}
+                                      </Text>
+
+                                      <View style={styles.ViewPS}>
+                                        <Text
+                                          style={[
+                                            styles.Textw2,
+                                            { color: theme.colors.primary },
+                                          ]}
+                                        >
+                                          {'$'}
+                                          {
+                                            scheduleListData?.properties
+                                              ?.nightly_price
+                                          }
+                                        </Text>
+
+                                        <Text
+                                          style={[
+                                            styles.Text_9O,
+                                            { color: theme.colors.primary },
+                                          ]}
+                                        >
+                                          {'/night'}
+                                        </Text>
+                                      </View>
+                                    </View>
+                                  </View>
+                                </Touchable>
                               </View>
-                            </Touchable>
-                          </View>
-                          <Spacer top={8} right={8} bottom={8} left={8} />
-                        </>
-                      );
-                    }}
-                    contentContainerStyle={styles.FlatListc5Content}
-                  />
-                )}
-              </>
-            </>
-          );
-        }}
-      </ExampleSavedPropertiesApi.FetchSavedPropertiesGET>
+                              <Spacer top={8} right={8} bottom={8} left={8} />
+                            </>
+                          );
+                        }}
+                        contentContainerStyle={styles.FlatListc5Content}
+                      />
+                    )}
+                  </>
+                </>
+              );
+            }}
+          </ExamplePropertiesApi.FetchListOfPropertiesGET>
+        )}
+      </>
     </ScreenContainer>
   );
 };
@@ -438,6 +451,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 16,
     marginRight: 16,
+  },
+  FetchIC: {
+    minHeight: 40,
   },
   ButtonSolido7: {
     borderRadius: 0,

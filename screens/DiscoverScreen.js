@@ -110,7 +110,7 @@ const DiscoverScreen = props => {
                                 <Text
                                   style={[
                                     styles.Texta2,
-                                    { color: theme.colors.lightInverse },
+                                    { color: theme.colors.lightGrey },
                                   ]}
                                 >
                                   {'[user Name]'}
@@ -120,7 +120,7 @@ const DiscoverScreen = props => {
                             <Text
                               style={[
                                 styles.TextK6,
-                                { color: theme.colors.strong },
+                                { color: theme.colors.dark },
                               ]}
                               textBreakStrategy={'highQuality'}
                               ellipsizeMode={'tail'}
@@ -145,9 +145,7 @@ const DiscoverScreen = props => {
                               color={theme.colors.divider}
                             />
                             <View style={styles.ViewDu}>
-                              <Text
-                                style={{ color: theme.colors.lightInverse }}
-                              >
+                              <Text style={{ color: theme.colors.lightGrey }}>
                                 {'[hours ago]'}
                               </Text>
                             </View>
@@ -177,7 +175,7 @@ const DiscoverScreen = props => {
                             icon={'Ionicons/md-people-circle-outline'}
                             size={32}
                           />
-                          <Text style={{ color: theme.colors.lightInverse }}>
+                          <Text style={{ color: theme.colors.lightGrey }}>
                             {'Teach me!'}
                           </Text>
                         </View>

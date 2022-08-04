@@ -17,11 +17,11 @@ const CameraPermissionsScreen = props => {
       </View>
 
       <View style={styles.Viewnc}>
-        <Text style={[styles.Texta8, { color: theme.colors.strong }]}>
+        <Text style={[styles.Texta8, { color: theme.colors.dark }]}>
           {'Enable Camera'}
         </Text>
 
-        <Text style={[styles.Text_7C, { color: theme.colors.strong }]}>
+        <Text style={[styles.Text_7C, { color: theme.colors.dark }]}>
           {
             "We'll need this for taking photos, accessing the camera roll, or recording video."
           }

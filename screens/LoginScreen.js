@@ -27,15 +27,16 @@ const LoginScreen = props => {
       if (!isFocused) {
         return;
       }
-      if (false) {
-        return;
-      }
+      setLoginEmailInput('');
+      setLoginPasswordInput('');
     } catch (err) {
       console.error(err);
     }
   }, [isFocused]);
 
   const [LoginPasswordInput, setLoginPasswordInput] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
   const [loginEmailInput, setLoginEmailInput] = React.useState('');
 
   return (
@@ -53,7 +54,7 @@ const LoginScreen = props => {
 
         <View style={styles.ViewHr}>
           <Text style={[styles.TextCH, { color: theme.colors.error }]}>
-            {null}
+            {errorMessage}
           </Text>
           <TextInput
             onChangeText={newEmailInputValue => {
@@ -65,14 +66,14 @@ const LoginScreen = props => {
             }}
             style={[
               styles.TextInputmO,
-              { borderColor: theme.colors.lightInverse },
+              { borderColor: theme.colors.lightGrey },
             ]}
             placeholder={'Email'}
             value={loginEmailInput}
             keyboardType={'email-address'}
             textContentType={'emailAddress'}
             autoCapitalize={'none'}
-            placeholderTextColor={theme.colors.lightInverse}
+            placeholderTextColor={theme.colors.lightGrey}
           />
           <Spacer top={12} right={8} bottom={12} left={8} />
           <TextInput
@@ -85,12 +86,12 @@ const LoginScreen = props => {
             }}
             style={[
               styles.TextInputtj,
-              { borderColor: theme.colors.lightInverse },
+              { borderColor: theme.colors.lightGrey },
             ]}
             value={LoginPasswordInput}
             placeholder={'Password'}
             secureTextEntry={true}
-            placeholderTextColor={theme.colors.lightInverse}
+            placeholderTextColor={theme.colors.lightGrey}
           />
           <Spacer top={24} right={8} bottom={24} left={8} />
           <ButtonSolid
@@ -105,17 +106,15 @@ const LoginScreen = props => {
                 );
                 const accessToken = loginResponseJson['access_token'];
                 const message = loginResponseJson['error_description'];
-                setGlobalVariableValue({
-                  key: 'ERROR_MESSAGE',
-                  value: message,
-                });
-                if (!accessToken) {
-                  return;
-                }
+                setErrorMessage(message);
                 setGlobalVariableValue({
                   key: 'AUTHORIZATION_HEADER',
                   value: 'Bearer ' + accessToken,
                 });
+                if (!accessToken) {
+                  return;
+                }
+                setErrorMessage('');
                 navigation.navigate('ProfileScreen');
               } catch (err) {
                 console.error(err);

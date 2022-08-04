@@ -8,6 +8,7 @@ const DeviceVariables = {
     'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjU3ODkwOTEwLCJzdWIiOiJlZTU5OWE5YS1jNzk2LTQ0YzMtODZlZC0yMGEzYzM1ZWNjZTkiLCJlbWFpbCI6InJhaHVsc0BsaXZlLmNhIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.rqJ0AbbHxujYw80uzM4zrb6NTXrcT1EIqm3UN9i35X4',
 };
 const AppVariables = {
+  profilePosts: '',
   Api_Key_Header:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0aHZvdW9uaHNoa3ZiYXVncmhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTUyOTQ3OTUsImV4cCI6MTk3MDg3MDc5NX0.qlFLjO6sBHJWx_oaEiF1r4QLaNKRKrnEIwUQRvIQrpI',
   ERROR_MESSAGE: '',
