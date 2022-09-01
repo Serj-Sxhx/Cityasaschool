@@ -1,4 +1,6 @@
 import React from 'react';
+import * as RestAPISupabaseApi from '../apis/RestAPISupabaseApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Images from '../config/Images';
 import * as Utils from '../utils';
 import {
@@ -12,348 +14,452 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
+import { Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const EditProfileScreen = props => {
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+
   const { theme } = props;
+
+  const restAPISupabaseUpdateProfileDataPATCH =
+    RestAPISupabaseApi.useUpdateProfileDataPATCH();
+
+  const isFocused = useIsFocused();
+  React.useEffect(() => {
+    const handler = async () => {
+      try {
+        if (!isFocused) {
+          return;
+        }
+        const userData = await RestAPISupabaseApi.getProfileDataGET(Constants, {
+          uuid: 'a950e463-fb07-4514-995c-98373e16561d',
+        });
+        console.log(userData?.[0]);
+        const fName = userData?.[0].firstName;
+        setFirstName(fName);
+        const lName = userData?.[0].lastName;
+        setLastName(lName);
+        const uName = userData?.[0].username;
+        const lGoal = userData?.[0].learning_goal;
+        setUserName(uName);
+        setLearningGoal(lGoal);
+        const pPicture = userData?.[0].profile_picture;
+        setProfileImageURL(pPicture);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    handler();
+  }, [isFocused]);
 
   const [checkboxValue, setCheckboxValue] = React.useState(false);
   const [datePickerValue, setDatePickerValue] = React.useState(new Date());
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [learningGoal, setLearningGoal] = React.useState('');
+  const [profileImageURL, setProfileImageURL] = React.useState('');
+  const [textAreaValue, setTextAreaValue] = React.useState('');
+  const [userName, setUserName] = React.useState('');
 
   return (
     <ScreenContainer style={styles.screen} hasSafeArea={true}>
-      <View style={styles.ViewiH}>
-        <View style={[styles.View_6k, { borderRadius: 8 }]}>
-          <View style={styles.ViewA7}>
-            <IconButton
-              icon={'AntDesign/left'}
-              size={24}
-              color={theme.colors.dark}
-            />
-            <Text style={[styles.Textfg, { color: theme.colors.dark }]}>
-              {'Edit Profile'}
-            </Text>
-          </View>
-        </View>
+      {/* topTitleFrame */}
+      <View style={styles.View2f41bffa}>
+        <IconButton
+          icon={'Entypo/chevron-left'}
+          size={24}
+          color={theme.colors.dark}
+        />
+        <Text style={[styles.Textf37ed692, { color: theme.colors.text }]}>
+          {'Edit Profile'}
+        </Text>
       </View>
 
       <KeyboardAwareScrollView
         enableOnAndroid={false}
         enableAutomaticScroll={true}
       >
-        <View style={styles.ViewUG}>
-          <View style={styles.View_0t}>
-            <Touchable
-              onPress={async () => {
+        {/* profileImageFrame */}
+        <View style={styles.Viewd02a7657}>
+          <Touchable
+            onPress={() => {
+              const handler = async () => {
                 try {
-                  await Utils.openCamera({ mediaTypes: 'Images' });
+                  const selectedImage = await Utils.openImagePicker({});
+                  setProfileImageURL(selectedImage);
+                  Keyboard.dismiss();
                 } catch (err) {
                   console.error(err);
                 }
-              }}
-            >
-              <View>
-                <CircleImage source={Images.Avatar} size={100} />
-                <Icon
-                  style={styles.Iconjn}
-                  name={'MaterialIcons/camera-alt'}
-                  size={32}
-                  color={theme.colors.primary}
-                />
-              </View>
-            </Touchable>
-          </View>
+              };
+              handler();
+            }}
+          >
+            {/* profileImage */}
+            <CircleImage
+              style={styles.CircleImage199953b3}
+              source={{ uri: `${profileImageURL}` }}
+              size={83}
+            />
+          </Touchable>
         </View>
-
-        <View style={styles.View_6X}>
-          <View>
-            <Text style={[styles.TextoZ, { color: theme.colors.dark }]}>
+        {/* formFrame */}
+        <View style={styles.View9fa86917}>
+          {/* firstName Frame */}
+          <View style={styles.Viewd8fb5662}>
+            {/* Label */}
+            <Text
+              style={[styles.Text1928d953, { color: theme.colors.lightGrey }]}
+            >
               {'First Name'}
             </Text>
-            <TextInput
+            {/* inputFrame */}
+            <View
               style={[
-                styles.TextInput_80,
-                { borderColor: theme.colors.lightGrey },
+                styles.View298bd5d3,
+                { backgroundColor: theme.colors.grayLine, borderRadius: 6 },
               ]}
-              placeholder={'First Name'}
-              value={null}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-            />
+            >
+              <TextInput
+                onChangeText={newTextInputValue => {
+                  try {
+                    setFirstName(newTextInputValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                style={[
+                  styles.TextInputd96db4ff,
+                  {
+                    borderColor: theme.colors.grayLine,
+                    backgroundColor: theme.colors.grayLine,
+                    color: theme.colors.text,
+                  },
+                ]}
+                placeholder={'Lewis'}
+                value={firstName}
+                placeholderTextColor={theme.colors.text}
+              />
+            </View>
           </View>
-          <Spacer top={12} right={8} bottom={12} left={8} />
-          <View>
-            <Text style={[styles.TextzL, { color: theme.colors.dark }]}>
-              {'Last Name'}
+          {/* lastName Frame */}
+          <View style={styles.Viewd8fb5662}>
+            {/* Label */}
+            <Text
+              style={[styles.Text1928d953, { color: theme.colors.lightGrey }]}
+            >
+              {'Last name'}
             </Text>
-            <TextInput
+            {/* inputFrame */}
+            <View
               style={[
-                styles.TextInputHw,
-                { borderColor: theme.colors.lightGrey },
+                styles.View298bd5d3,
+                { backgroundColor: theme.colors.grayLine, borderRadius: 6 },
               ]}
-              value={null}
-              placeholder={'Name'}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-            />
+            >
+              <TextInput
+                onChangeText={newTextInputValue => {
+                  try {
+                    setLastName(newTextInputValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                style={[
+                  styles.TextInputba1eac88,
+                  {
+                    borderColor: theme.colors.grayLine,
+                    backgroundColor: theme.colors.grayLine,
+                    color: theme.colors.text,
+                  },
+                ]}
+                placeholder={'Thomas'}
+                value={lastName}
+                placeholderTextColor={theme.colors.text}
+              />
+            </View>
           </View>
-          <Spacer top={16} right={8} bottom={16} left={8} />
-          <View>
-            <Text style={[styles.Textpa, { color: theme.colors.dark }]}>
-              {'User Name'}
+          {/* userName Frame */}
+          <View style={styles.Viewd8fb5662}>
+            {/* Label */}
+            <Text
+              style={[styles.Text1928d953, { color: theme.colors.lightGrey }]}
+            >
+              {'Username*'}
             </Text>
-            <TextInput
+            {/* inputFrame */}
+            <View
               style={[
-                styles.TextInputJS,
-                { borderColor: theme.colors.lightGrey },
+                styles.View298bd5d3,
+                { backgroundColor: theme.colors.grayLine, borderRadius: 6 },
               ]}
-              value={null}
-              placeholder={'Name'}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-            />
-            <Spacer top={16} right={8} bottom={16} left={8} />
+            >
+              <TextInput
+                onChangeText={newTextInputValue => {
+                  try {
+                    setUserName(newTextInputValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                style={[
+                  styles.TextInputba1eac88,
+                  {
+                    borderColor: theme.colors.grayLine,
+                    backgroundColor: theme.colors.grayLine,
+                    color: theme.colors.text,
+                  },
+                ]}
+                placeholder={'@username'}
+                value={userName}
+                placeholderTextColor={theme.colors.text}
+              />
+            </View>
           </View>
-
-          <View>
-            <Text style={[styles.Text_6b, { color: theme.colors.dark }]}>
-              {'Learning Goal / Bio'}
+          {/* userName Frame */}
+          <View style={styles.Viewd8fb5662}>
+            {/* Label */}
+            <Text
+              style={[styles.Text1928d953, { color: theme.colors.lightGrey }]}
+            >
+              {'Learning Goal'}
             </Text>
-            <TextInput
+            {/* inputFrame */}
+            <View
               style={[
-                styles.TextInput_3l,
-                { borderColor: theme.colors.lightGrey },
+                styles.View298bd5d3,
+                { backgroundColor: theme.colors.grayLine, borderRadius: 6 },
               ]}
-              value={null}
-              placeholder={'Name'}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-              numberOfLines={4}
-              maxLength={320}
-              multiline={true}
-            />
-            <Spacer top={12} right={8} bottom={12} left={8} />
-          </View>
-
-          <View>
-            <Text style={[styles.Text_23, { color: theme.colors.dark }]}>
-              {'Location'}
-            </Text>
-            <TextInput
-              style={[
-                styles.TextInputQT,
-                { borderColor: theme.colors.lightGrey },
-              ]}
-              value={null}
-              placeholder={'Name'}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-            />
-            <Spacer top={16} right={8} bottom={16} left={8} />
-          </View>
-
-          <View>
-            <Text style={[styles.TextWZ, { color: theme.colors.dark }]}>
-              {'Birthday'}
-            </Text>
-            <DatePicker
-              onDateChange={newDatePickerValue => {
-                try {
-                  setDatePickerValue(newDatePickerValue);
-                } catch (err) {
-                  console.error(err);
+            >
+              <TextInput
+                onChangeText={newTextAreaValue => {
+                  try {
+                    setLearningGoal(newTextAreaValue);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }}
+                style={[
+                  styles.TextInput09eae696,
+                  {
+                    borderColor: theme.colors.divider,
+                    color: theme.colors.text,
+                  },
+                ]}
+                placeholder={
+                  'Im interested in working on projects that reduce CO2 emissions and reduce our dependance on fossil fuels. It also really want to learn how to use 3D printers.'
                 }
-              }}
-              date={datePickerValue}
-              label={'Date'}
-              mode={'date'}
-              leftIconMode={'inset'}
-              type={'solid'}
-            />
-            <Spacer top={16} right={8} bottom={16} left={8} />
+                value={learningGoal}
+                multiline={true}
+                numberOfLines={4}
+                placeholderTextColor={theme.colors.text}
+              />
+            </View>
           </View>
-
-          <View>
-            <Text style={[styles.TextPi, { color: theme.colors.dark }]}>
-              {'Gender'}
-            </Text>
-            <TextInput
-              style={[
-                styles.TextInputXc,
-                { borderColor: theme.colors.lightGrey },
-              ]}
-              value={null}
-              placeholder={'Name'}
-              autoCapitalize={'words'}
-              placeholderTextColor={theme.colors.lightGrey}
-            />
-            <Spacer top={16} right={8} bottom={16} left={8} />
-          </View>
+          {/* Save Button */}
+          <>
+            {null ? null : (
+              <ButtonSolid
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      await restAPISupabaseUpdateProfileDataPATCH.mutateAsync({
+                        city: 'london',
+                        learningContext: 'none',
+                        learningGoal: learningGoal,
+                        profilePicture: 'itcouldbeanything',
+                        uuid: 'a950e463-fb07-4514-995c-98373e16561d',
+                        website: 'no',
+                      });
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  };
+                  handler();
+                }}
+                style={[
+                  styles.ButtonSolidddb156aa,
+                  { backgroundColor: theme.colors.primary },
+                ]}
+                title={'Save'}
+              />
+            )}
+          </>
         </View>
       </KeyboardAwareScrollView>
-
-      <View style={styles.ViewZB}>
-        <ButtonSolid
-          style={[
-            styles.ButtonSolid_51,
-            { backgroundColor: theme.colors.primary },
-          ]}
-          title={'Save'}
-        />
-      </View>
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  Textfg: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  ViewA7: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  View_6k: {
-    paddingLeft: 0,
-    paddingBottom: 6,
-    paddingRight: 0,
-    paddingTop: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewiH: {
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-  },
-  Iconjn: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-  },
-  View_0t: {
-    alignItems: 'center',
-  },
-  ViewUG: {
-    paddingLeft: 16,
-    paddingTop: 30,
-    paddingRight: 16,
-    paddingBottom: 30,
-  },
-  TextoZ: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInput_80: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  TextzL: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInputHw: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  Textpa: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInputJS: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  Text_6b: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInput_3l: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  Text_23: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInputQT: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  TextWZ: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextPi: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  TextInputXc: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  View_6X: {
-    paddingLeft: 16,
-    paddingRight: 16,
-  },
-  ButtonSolid_51: {
+  ButtonSolid2d5f6a36: {
     borderRadius: 8,
     fontFamily: 'System',
     fontWeight: '700',
     textAlign: 'center',
   },
-  ViewZB: {
+  ButtonSolidddb156aa: {
+    borderRadius: 8,
+    fontFamily: 'Montserrat_400Regular',
+    lineHeight: 17,
+    marginBottom: 31,
+    marginTop: 31,
+    textAlign: 'center',
+  },
+  CircleImage199953b3: {
+    height: 83,
+    width: 83,
+  },
+  Iconc3fc9aa9: {
+    bottom: 0,
+    position: 'absolute',
+    right: 0,
+  },
+  Text1928d953: {
+    fontFamily: 'Inter_400Regular',
+    fontSize: 16,
+    lineHeight: 19,
+  },
+  Text21c8e5a2: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 20,
+    marginLeft: 8,
+  },
+  Text2fdc442c: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  Text7f6ed4c3: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  TextInput0363a3f3: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    paddingBottom: 16,
     paddingLeft: 16,
     paddingRight: 16,
+    paddingTop: 16,
+  },
+  TextInput09eae696: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    fontFamily: 'Inter_400Regular',
+    lineHeight: 17,
+    paddingBottom: 9,
+    paddingLeft: 12,
+    paddingRight: 8,
+    paddingTop: 9,
+  },
+  TextInputba1eac88: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    fontFamily: 'Inter_400Regular',
+    lineHeight: 17,
+    paddingBottom: 9,
+    paddingLeft: 12,
+    paddingRight: 9,
+    paddingTop: 9,
+  },
+  TextInputd96db4ff: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    fontFamily: 'Inter_400Regular',
+    lineHeight: 17,
+    paddingBottom: 9,
+    paddingLeft: 12,
+    paddingRight: 9,
+    paddingTop: 9,
+  },
+  TextInpute550455e: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
     paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  Textf37ed692: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 20,
+    lineHeight: 24,
+    paddingLeft: 12,
+  },
+  View107cd99e: {
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  View298bd5d3: {
+    marginTop: 6,
+    overflow: 'hidden',
+  },
+  View2f41bffa: {
+    alignContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  View39912261: {
+    alignItems: 'center',
+  },
+  View7ce34d0a: {
+    paddingBottom: 30,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 30,
+  },
+  View9fa86917: {
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  Viewac9f1ff4: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingBottom: 6,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 6,
+  },
+  Viewcaa0afd5: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  Viewd02a7657: {
+    paddingBottom: 16,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 16,
+  },
+  Viewd8fb5662: {
+    marginBottom: 16,
+  },
+  Viewe6b20937: {
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 16,
   },
   screen: {

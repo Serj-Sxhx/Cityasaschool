@@ -8,32 +8,36 @@ const CameraPermissionsScreen = props => {
 
   return (
     <ScreenContainer scrollable={true} hasSafeArea={true}>
-      <View style={styles.Viewsh}>
+      {/* Header Wrapper */}
+      <View style={styles.View8cc519a9}>
+        {/* Calendar Icon 140 140 */}
         <Image
-          style={styles.Imagemn}
+          style={styles.Image7c46d9a9}
           source={Images.ScreenShot20211122At33505PM}
           resizeMode={'contain'}
         />
       </View>
-
-      <View style={styles.Viewnc}>
-        <Text style={[styles.Texta8, { color: theme.colors.dark }]}>
+      {/* Content Wrapper */}
+      <View style={styles.View243cffa7}>
+        {/* Title  */}
+        <Text style={[styles.Text71724681, { color: theme.colors.dark }]}>
           {'Enable Camera'}
         </Text>
-
-        <Text style={[styles.Text_7C, { color: theme.colors.dark }]}>
+        {/* Text for Icon */}
+        <Text style={[styles.Text46ba70a9, { color: theme.colors.dark }]}>
           {
             "We'll need this for taking photos, accessing the camera roll, or recording video."
           }
         </Text>
       </View>
-
-      <View style={styles.ViewDp}>
+      {/* Footer Wrapper */}
+      <View style={styles.View545158ff}>
         <Touchable>
+          {/* Button Information */}
           <Text
             style={[
               theme.typography.button,
-              styles.Textri,
+              styles.Text07d4fe12,
               { color: theme.colors.light },
             ]}
           >
@@ -42,7 +46,7 @@ const CameraPermissionsScreen = props => {
         </Touchable>
 
         <Button
-          style={[styles.ButtontG, { borderRadius: 40 }]}
+          style={[styles.Buttonce614fac, { borderRadius: 40 }]}
           type={'solid'}
           color={theme.colors.null}
         >
@@ -54,53 +58,53 @@ const CameraPermissionsScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  Imagemn: {
-    width: 140,
+  Buttonce614fac: {
+    marginBottom: 40,
+    marginTop: 18,
+  },
+  Image7c46d9a9: {
     height: 140,
+    width: 140,
   },
-  Viewsh: {
-    flexGrow: 1,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginLeft: 12,
-    marginRight: 12,
-  },
-  Texta8: {
-    textAlign: 'center',
-    fontSize: 24,
-    fontFamily: 'System',
-    fontWeight: '700',
-  },
-  Text_7C: {
-    marginTop: 6,
-    textAlign: 'center',
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  Viewnc: {
-    flexGrow: 0,
-    flexShrink: 0,
-    justifyContent: 'center',
-    minHeight: '15%',
-    marginLeft: 12,
-    marginRight: 12,
-  },
-  Textri: {
+  Text07d4fe12: {
     textAlign: 'center',
     textTransform: 'uppercase',
   },
-  ButtontG: {
-    marginTop: 18,
-    marginBottom: 40,
+  Text46ba70a9: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 6,
+    textAlign: 'center',
   },
-  ViewDp: {
+  Text71724681: {
+    fontFamily: 'System',
+    fontWeight: '700',
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  View243cffa7: {
+    flexGrow: 0,
+    flexShrink: 0,
+    justifyContent: 'center',
+    marginLeft: 12,
+    marginRight: 12,
+    minHeight: '15%',
+  },
+  View545158ff: {
     flexGrow: 1,
     flexShrink: 0,
     justifyContent: 'flex-end',
     marginLeft: 12,
     marginRight: 12,
     maxHeight: '33%',
+  },
+  View8cc519a9: {
+    alignItems: 'center',
+    flexGrow: 1,
+    flexShrink: 0,
+    justifyContent: 'flex-end',
+    marginLeft: 12,
+    marginRight: 12,
   },
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import * as ExamplePropertiesApi from '../apis/ExamplePropertiesApi.js';
+import * as RestAPISupabaseApi from '../apis/RestAPISupabaseApi.js';
+import relativeTime from '../custom/relativeTime';
 import {
   CircleImage,
   Divider,
@@ -24,7 +25,7 @@ import { Fetch } from 'react-request';
 const DiscoverScreen = props => {
   const { theme } = props;
 
-  const [textInputValue, setTextInputValue] = React.useState('');
+  const [replyText, setReplyText] = React.useState('');
 
   return (
     <ScreenContainer
@@ -33,12 +34,12 @@ const DiscoverScreen = props => {
       scrollable={true}
       hasTopSafeArea={true}
     >
-      <Text style={[styles.Text_7m, { color: theme.colors.primary }]}>
+      <Text style={[styles.Text2977fcf6, { color: theme.colors.primary }]}>
         {"What's new in the community"}
       </Text>
 
-      <ExamplePropertiesApi.FetchListOfPropertiesGET method={'GET'} limit={12}>
-        {({ loading, error, data, refetchListOfProperties }) => {
+      <RestAPISupabaseApi.FetchDiscoverPostsConnectedGET method={'GET'}>
+        {({ loading, error, data, refetchDiscoverPostsConnected }) => {
           const fetchData = data;
           if (!fetchData || loading) {
             return <ActivityIndicator />;
@@ -56,14 +57,14 @@ const DiscoverScreen = props => {
             <FlatList
               data={fetchData}
               listKey={'pSOgSW3b'}
-              keyExtractor={({ item }) => item?.id || item?.uuid || item}
+              keyExtractor={item => item?.id || item?.uuid || item}
               renderItem={({ item }) => {
                 const listData = item;
                 return (
                   <>
                     <View
                       style={[
-                        styles.ViewgM,
+                        styles.Viewcabc33e8,
                         {
                           backgroundColor: theme.colors.surface,
                           borderRadius: 8,
@@ -72,19 +73,24 @@ const DiscoverScreen = props => {
                       ]}
                     >
                       <Touchable>
-                        <View style={styles.VieweU}>
+                        <View style={styles.View159f4146}>
                           <ImageBackground
                             style={[
-                              styles.ImageBackgrounde5,
+                              styles.ImageBackground69e94ca6,
                               { borderRadius: theme.roundness },
                             ]}
                             resizeMode={'cover'}
-                            source={{ uri: `${listData?.image_url}` }}
+                            source={{
+                              uri: `${
+                                listData?.imagesArray &&
+                                listData?.imagesArray[0]
+                              }`,
+                            }}
                           >
-                            <View style={styles.ViewEQ}>
+                            <View style={styles.Viewe7575ee4}>
                               <View
                                 style={[
-                                  styles.ViewmC,
+                                  styles.View5593f1db,
                                   {
                                     borderBottomLeftRadius: 8,
                                     borderTopLeftRadius: 8,
@@ -92,34 +98,31 @@ const DiscoverScreen = props => {
                                 ]}
                               >
                                 <CircleImage
-                                  style={styles.CircleImageaB}
-                                  source={{
-                                    uri: 'https://static.draftbit.com/images/placeholder-image.png',
-                                  }}
+                                  style={styles.CircleImage6b3d7138}
                                   size={60}
+                                  source={{
+                                    uri: `${listData?.profiles?.profile_picture}`,
+                                  }}
                                 />
                               </View>
                             </View>
                           </ImageBackground>
                         </View>
 
-                        <View style={styles.ViewI9}>
+                        <View style={styles.View8db74792}>
                           <View>
-                            <>
-                              {!listData ? null : (
-                                <Text
-                                  style={[
-                                    styles.Texta2,
-                                    { color: theme.colors.lightGrey },
-                                  ]}
-                                >
-                                  {'[user Name]'}
-                                </Text>
-                              )}
-                            </>
                             <Text
                               style={[
-                                styles.TextK6,
+                                styles.Textfe4881a7,
+                                { color: theme.colors.lightGrey },
+                              ]}
+                            >
+                              {listData?.profiles?.username}
+                            </Text>
+
+                            <Text
+                              style={[
+                                styles.Texte8e51639,
                                 { color: theme.colors.dark },
                               ]}
                               textBreakStrategy={'highQuality'}
@@ -127,13 +130,13 @@ const DiscoverScreen = props => {
                               allowFontScaling={true}
                               numberOfLines={2}
                             >
-                              {listData?.name}
+                              {listData?.title}
                             </Text>
                             <Spacer top={4} right={8} bottom={4} left={8} />
                             <Text
                               style={[
-                                styles.TextbS,
-                                { color: theme.colors.medium },
+                                styles.Textd1cb507d,
+                                { color: theme.colors.strong },
                               ]}
                               ellipsizeMode={'tail'}
                               numberOfLines={2}
@@ -141,36 +144,43 @@ const DiscoverScreen = props => {
                               {listData?.description}
                             </Text>
                             <Divider
-                              style={styles.DividerQb}
+                              style={styles.Divider22627dc6}
                               color={theme.colors.divider}
                             />
-                            <View style={styles.ViewDu}>
-                              <Text style={{ color: theme.colors.lightGrey }}>
-                                {'[hours ago]'}
+                            <View style={styles.View4a298bf0}>
+                              <Text
+                                style={[
+                                  styles.Text7acdf8ca,
+                                  { color: theme.colors.lightGrey },
+                                ]}
+                              >
+                                {relativeTime(listData?.created_at)}
                               </Text>
                             </View>
                           </View>
                         </View>
                       </Touchable>
 
-                      <View style={styles.ViewFN}>
+                      <View style={styles.View229567ec}>
                         <TextInput
                           onChangeText={newTextInputValue => {
-                            const textInputValue = newTextInputValue;
                             try {
-                              setTextInputValue(textInputValue);
+                              setReplyText(newTextInputValue);
                             } catch (err) {
                               console.error(err);
                             }
                           }}
                           style={[
-                            styles.TextInput_14,
-                            { borderColor: theme.colors.divider },
+                            styles.TextInput95389a2b,
+                            {
+                              borderColor: theme.colors.divider,
+                              backgroundColor: theme.colors.light,
+                            },
                           ]}
                           placeholder={'Reply directly'}
-                          value={textInputValue}
+                          value={replyText}
                         />
-                        <View style={styles.ViewC0}>
+                        <View style={styles.View39912261}>
                           <IconButton
                             icon={'Ionicons/md-people-circle-outline'}
                             size={32}
@@ -185,113 +195,116 @@ const DiscoverScreen = props => {
                   </>
                 );
               }}
-              contentContainerStyle={styles.FlatListpSContent}
+              contentContainerStyle={styles.FlatList8db74792Content}
             />
           );
         }}
-      </ExamplePropertiesApi.FetchListOfPropertiesGET>
+      </RestAPISupabaseApi.FetchDiscoverPostsConnectedGET>
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  Text_7m: {
+  CircleImage6b3d7138: {
+    marginBottom: 8,
+    marginLeft: 8,
+    marginRight: 8,
+    marginTop: 8,
+  },
+  Divider22627dc6: {
+    height: 1,
+    marginBottom: 12,
+    marginTop: 12,
+  },
+  FlatList8db74792Content: {
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  ImageBackground69e94ca6: {
+    height: '100%',
+    width: '100%',
+  },
+  Text2977fcf6: {
     fontFamily: 'System',
     fontWeight: '600',
     fontSize: 24,
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 32,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
   },
-  CircleImageaB: {
-    marginLeft: 8,
-    marginTop: 8,
-    marginBottom: 8,
-    marginRight: 8,
+  Text7acdf8ca: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 11,
   },
-  ViewmC: {
-    paddingLeft: 8,
-    paddingTop: 4,
-    paddingRight: 8,
-    paddingBottom: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewEQ: {
-    alignItems: 'flex-start',
-    marginTop: 0,
-  },
-  ImageBackgrounde5: {
-    width: '100%',
-    height: '100%',
-  },
-  VieweU: {
-    height: 240,
-  },
-  Texta2: {
-    marginBottom: 4,
-  },
-  TextK6: {
-    fontFamily: 'System',
-    fontWeight: '600',
-    fontSize: 18,
-  },
-  TextbS: {
-    lineHeight: 24,
-    fontFamily: 'System',
-    fontWeight: '400',
-  },
-  DividerQb: {
-    height: 1,
-    marginTop: 12,
-    marginBottom: 12,
-  },
-  ViewDu: {
-    alignItems: 'flex-start',
-  },
-  ViewI9: {
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-  },
-  TextInput_14: {
+  TextInput95389a2b: {
+    borderBottomWidth: 1,
     borderLeftWidth: 1,
+    borderRadius: 8,
     borderRightWidth: 1,
     borderTopWidth: 1,
-    borderBottomWidth: 1,
+    marginRight: 16,
+    paddingBottom: 8,
     paddingLeft: 8,
     paddingRight: 8,
     paddingTop: 8,
-    paddingBottom: 8,
-    borderRadius: 8,
     width: '100%',
-    marginRight: 16,
   },
-  ViewC0: {
-    alignItems: 'center',
+  Textd1cb507d: {
+    fontFamily: 'Inter_400Regular',
   },
-  ViewFN: {
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
+  Texte8e51639: {
+    fontFamily: 'Inter_700Bold',
+    fontSize: 14,
+  },
+  Textfe4881a7: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 11,
+    marginBottom: 4,
+  },
+  View159f4146: {
+    height: 240,
+  },
+  View229567ec: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  ViewgM: {
-    overflow: 'hidden',
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-  },
-  FlatListpSContent: {
+    paddingBottom: 16,
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 16,
+  },
+  View39912261: {
+    alignItems: 'center',
+  },
+  View4a298bf0: {
+    alignItems: 'flex-start',
+  },
+  View5593f1db: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingBottom: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 4,
+  },
+  View8db74792: {
     paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  Viewcabc33e8: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    overflow: 'hidden',
+  },
+  Viewe7575ee4: {
+    alignItems: 'flex-start',
+    marginTop: 0,
   },
 });
 

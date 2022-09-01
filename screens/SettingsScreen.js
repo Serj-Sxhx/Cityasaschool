@@ -7,27 +7,30 @@ import {
   Icon,
   IconButton,
   ScreenContainer,
-  Spacer,
   Switch,
   Touchable,
   withTheme,
 } from '@draftbit/ui';
+import * as WebBrowser from 'expo-web-browser';
 import { StyleSheet, Text, View } from 'react-native';
 
 const SettingsScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-
   const setGlobalVariableValue = GlobalVariables.useSetValue();
 
   const { theme } = props;
   const { navigation } = props;
 
+  const [publicReply, setPublicReply] = React.useState(true);
+  const [replyInPost, setReplyInPost] = React.useState(true);
   const [starRatingValue, setStarRatingValue] = React.useState('');
+  const [taggedInPost, setTaggedInPost] = React.useState(false);
 
   return (
     <ScreenContainer scrollable={true} hasSafeArea={true}>
-      <View style={styles.View_5P}>
+      {/* Add Learning Experience TItle */}
+      <View style={styles.View7a442f6d}>
         <IconButton
           onPress={() => {
             try {
@@ -36,26 +39,28 @@ const SettingsScreen = props => {
               console.error(err);
             }
           }}
-          icon={'AntDesign/left'}
+          icon={'Entypo/chevron-left'}
           size={24}
           color={theme.colors.dark}
         />
-        <Spacer top={8} right={8} bottom={8} left={8} />
-        <Text style={[styles.TextPs, { color: theme.colors.dark }]}>
+        <Text style={[styles.Textf37ed692, { color: theme.colors.text }]}>
           {'Settings'}
         </Text>
       </View>
-
-      <View style={styles.ViewCo}>
-        <Text style={[styles.TextCC, { color: theme.colors.dark }]}>
+      {/* settingLink */}
+      <View style={styles.Viewdc97c93f}>
+        {/* Account Title */}
+        <Text style={[styles.Textcdcede10, { color: theme.colors.dark }]}>
           {'Account'}
         </Text>
 
         <Touchable>
-          <View style={styles.Viewrl}>
-            <View style={styles.Viewrm}>
+          {/* Edit Profile Call to Action */}
+          <View style={styles.Viewa3efd197}>
+            {/* Left Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Text
-                style={[styles.TextD1, { color: theme.colors.dark }]}
+                style={[styles.Textae4175fe, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -63,22 +68,32 @@ const SettingsScreen = props => {
                 {'Edit profile'}
               </Text>
             </View>
-
-            <View style={styles.Viewg7}>
+            {/* Right Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.dark}
                 size={24}
+                color={theme.colors.dark}
               />
             </View>
           </View>
         </Touchable>
 
-        <Touchable>
-          <View style={styles.View_7t}>
-            <View style={styles.Viewbk}>
+        <Touchable
+          onPress={() => {
+            try {
+              navigation.navigate('ResetPasswordScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+        >
+          {/* Row Wrapper */}
+          <View style={styles.Viewa3efd197}>
+            {/* Left Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Text
-                style={[styles.TextEe, { color: theme.colors.dark }]}
+                style={[styles.Texte5186bff, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -86,31 +101,46 @@ const SettingsScreen = props => {
                 {'Reset password'}
               </Text>
             </View>
-
-            <View style={styles.ViewwI}>
+            {/* Right Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.dark}
                 size={24}
+                color={theme.colors.dark}
               />
             </View>
           </View>
           <Divider
-            style={styles.Divideri5}
+            style={styles.Divider74c6b3f7}
             height={1}
             color={theme.colors.divider}
           />
         </Touchable>
-
-        <Text style={[styles.Textch, { color: theme.colors.dark }]}>
+        {/* Help */}
+        <Text style={[styles.Textcdcede10, { color: theme.colors.dark }]}>
           {'Help'}
         </Text>
 
-        <Touchable>
-          <View style={styles.ViewHR}>
-            <View style={styles.ViewiD}>
+        <Touchable
+          onPress={() => {
+            const handler = async () => {
+              try {
+                await WebBrowser.openBrowserAsync(
+                  'https://go.crisp.chat/chat/embed/?website_id=5da7a8de-200b-43f5-80df-d44a951658f2'
+                );
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
+          }}
+        >
+          {/* Row Wrapper */}
+          <View style={styles.Viewa3efd197}>
+            {/* Left Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Text
-                style={[styles.TextxJ, { color: theme.colors.dark }]}
+                style={[styles.Texte5186bff, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -118,115 +148,137 @@ const SettingsScreen = props => {
                 {'Contact us'}
               </Text>
             </View>
-
-            <View style={styles.Viewg8}>
+            {/* Right Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.dark}
                 size={24}
+                color={theme.colors.dark}
               />
             </View>
           </View>
-
-          <Touchable>
-            <View style={styles.Viewh1}>
-              <View style={styles.Viewgx}>
-                <Text
-                  style={[styles.TextUt, { color: theme.colors.dark }]}
-                  allowFontScaling={true}
-                  ellipsizeMode={'tail'}
-                  textBreakStrategy={'highQuality'}
-                >
-                  {'Request new features'}
-                </Text>
-              </View>
-
-              <View style={styles.ViewbY}>
-                <Icon
-                  name={'MaterialIcons/chevron-right'}
-                  color={theme.colors.dark}
-                  size={24}
-                />
-              </View>
-            </View>
-            <Divider
-              style={styles.DividerFt}
-              height={1}
-              color={theme.colors.divider}
-            />
-          </Touchable>
         </Touchable>
 
-        <Text style={[styles.Textaz, { color: theme.colors.dark }]}>
+        <Touchable
+          onPress={() => {
+            const handler = async () => {
+              try {
+                await WebBrowser.openBrowserAsync(
+                  'https://vision-committee.canny.io/'
+                );
+              } catch (err) {
+                console.error(err);
+              }
+            };
+            handler();
+          }}
+        >
+          {/* Row Wrapper */}
+          <View style={styles.Viewa3efd197}>
+            {/* Left Aligned */}
+            <View style={styles.View7d6a39b7}>
+              <Text
+                style={[styles.Texte5186bff, { color: theme.colors.dark }]}
+                allowFontScaling={true}
+                ellipsizeMode={'tail'}
+                textBreakStrategy={'highQuality'}
+              >
+                {'Request new features'}
+              </Text>
+            </View>
+            {/* Right Aligned */}
+            <View style={styles.View7d6a39b7}>
+              <Icon
+                name={'MaterialIcons/chevron-right'}
+                size={24}
+                color={theme.colors.dark}
+              />
+            </View>
+          </View>
+          <Divider
+            style={styles.Divider74c6b3f7}
+            height={1}
+            color={theme.colors.divider}
+          />
+        </Touchable>
+        {/* Permissions */}
+        <Text style={[styles.Textcdcede10, { color: theme.colors.dark }]}>
           {'Permissions'}
         </Text>
 
-        <View style={styles.Viewag}>
-          <Text style={[styles.TextxP, { color: theme.colors.dark }]}>
+        <View style={styles.View30e24516}>
+          <Text style={[styles.Text58d1d82f, { color: theme.colors.dark }]}>
             {'Everyone can reply to you'}
           </Text>
           <Switch
             onValueChange={newSwitchValue => {
               try {
+                setPublicReply(newSwitchValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            value={null}
+            value={publicReply}
           />
         </View>
         <Divider
-          style={styles.Dividerux}
+          style={styles.Divider74c6b3f7}
           height={1}
           color={theme.colors.divider}
         />
-        <Text style={[styles.TextoZ, { color: theme.colors.dark }]}>
+        {/* Email Notifications */}
+        <Text style={[styles.Text52201420, { color: theme.colors.dark }]}>
           {'Email Notifications'}
         </Text>
 
-        <View style={styles.ViewKW}>
-          <Text style={[styles.TextLi, { color: theme.colors.dark }]}>
+        <View style={styles.View2b260bc9}>
+          <Text style={[styles.Text58d1d82f, { color: theme.colors.dark }]}>
             {'Tagged in a post'}
           </Text>
           <Switch
             onValueChange={newSwitchValue => {
               try {
+                setTaggedInPost(newSwitchValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            value={null}
+            value={taggedInPost}
           />
         </View>
 
-        <View style={styles.ViewIz}>
-          <Text style={[styles.TextMo, { color: theme.colors.dark }]}>
+        <View style={styles.View30e24516}>
+          <Text style={[styles.Text58d1d82f, { color: theme.colors.dark }]}>
             {'New replies'}
           </Text>
           <Switch
             onValueChange={newSwitchValue => {
               try {
+                setReplyInPost(newSwitchValue);
               } catch (err) {
                 console.error(err);
               }
             }}
-            value={null}
+            value={replyInPost}
           />
         </View>
         <Divider
-          style={styles.DividerIQ}
+          style={styles.Divider74c6b3f7}
           height={1}
           color={theme.colors.divider}
         />
-        <Text style={[styles.Textqz, { color: theme.colors.dark }]}>
+        {/* Export */}
+        <Text style={[styles.Textcdcede10, { color: theme.colors.dark }]}>
           {'Export'}
         </Text>
 
         <Touchable>
-          <View style={styles.Viewre}>
-            <View style={styles.ViewGR}>
+          {/* Row Wrapper */}
+          <View style={styles.Viewf0e1e0e6}>
+            {/* Left Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Text
-                style={[styles.TextKj, { color: theme.colors.dark }]}
+                style={[styles.Texte5186bff, { color: theme.colors.dark }]}
                 allowFontScaling={true}
                 ellipsizeMode={'tail'}
                 textBreakStrategy={'highQuality'}
@@ -234,45 +286,49 @@ const SettingsScreen = props => {
                 {'Export to .csv file'}
               </Text>
             </View>
-
-            <View style={styles.ViewLm}>
+            {/* Right Aligned */}
+            <View style={styles.View7d6a39b7}>
               <Icon
                 name={'MaterialIcons/chevron-right'}
-                color={theme.colors.dark}
                 size={24}
+                color={theme.colors.dark}
               />
             </View>
           </View>
           <Divider
-            style={styles.DivideryS}
+            style={styles.Divider74c6b3f7}
             height={1}
             color={theme.colors.divider}
           />
         </Touchable>
       </View>
       <ButtonOutline
-        onPress={async () => {
-          try {
-            await RestAPISupabaseApi.logoutPOST(Constants);
-            setGlobalVariableValue({
-              key: 'AUTHORIZATION_HEADER',
-              value: '',
-            });
-            navigation.navigate('WelcomeScreen');
-          } catch (err) {
-            console.error(err);
-          }
+        onPress={() => {
+          const handler = async () => {
+            try {
+              await RestAPISupabaseApi.logoutPOST(Constants);
+              setGlobalVariableValue({
+                key: 'AUTHORIZATION_HEADER',
+                value: '',
+              });
+              navigation.navigate('WelcomeScreen');
+            } catch (err) {
+              console.error(err);
+            }
+          };
+          handler();
         }}
-        style={styles.ButtonOutlinefM}
+        style={styles.ButtonOutline8c7ccbe1}
         title={'Sign Out'}
       />
+      {/* versionCredtis */}
       <View
         style={[
-          styles.ViewG9,
+          styles.Viewa2062c83,
           { backgroundColor: theme.colors.secondary, borderRadius: 8 },
         ]}
       >
-        <Text style={[styles.TextUK, { color: theme.colors.light }]}>
+        <Text style={[styles.Text85f21c07, { color: theme.colors.light }]}>
           {'Made with ❤️ by City as a School\n\nVersion 0.01.00-alpha'}
         </Text>
       </View>
@@ -281,226 +337,112 @@ const SettingsScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  TextPs: {
-    marginBottom: 0,
-    fontSize: 20,
-    lineHeight: 24,
-    fontFamily: 'System',
-    fontWeight: '600',
-    paddingLeft: 0,
-  },
-  View_5P: {
-    flexGrow: 1,
-    flexShrink: 0,
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingLeft: 0,
-    paddingRight: 0,
-    marginLeft: 16,
-    marginRight: 16,
-    paddingTop: 6,
-    paddingBottom: 6,
-  },
-  TextCC: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginTop: 16,
-  },
-  TextD1: {
-    marginLeft: 0,
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  Viewrm: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewg7: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewrl: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-  },
-  TextEe: {
-    marginLeft: 0,
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  Viewbk: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewwI: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  View_7t: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-  },
-  Divideri5: {
-    height: 1,
-    marginTop: 16,
-  },
-  Textch: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginTop: 16,
-  },
-  TextxJ: {
-    marginLeft: 0,
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  ViewiD: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewg8: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewHR: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-  },
-  TextUt: {
-    marginLeft: 0,
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  Viewgx: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewbY: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewh1: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-  },
-  DividerFt: {
-    height: 1,
-    marginTop: 16,
-  },
-  Textaz: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginTop: 16,
-  },
-  TextxP: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  Viewag: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    paddingLeft: 0,
-  },
-  Dividerux: {
-    height: 1,
-    marginTop: 16,
-  },
-  TextoZ: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginTop: 16,
-    marginBottom: 0,
-  },
-  TextLi: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  ViewKW: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    paddingLeft: 0,
-  },
-  TextMo: {
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  ViewIz: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    paddingLeft: 0,
-  },
-  DividerIQ: {
-    height: 1,
-    marginTop: 16,
-  },
-  Textqz: {
-    fontSize: 20,
-    fontFamily: 'System',
-    fontWeight: '600',
-    marginTop: 16,
-  },
-  TextKj: {
-    marginLeft: 0,
-    fontFamily: 'System',
-    fontWeight: '600',
-  },
-  ViewGR: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ViewLm: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewre: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 32,
-  },
-  DivideryS: {
-    height: 1,
-    marginTop: 16,
-  },
-  ViewCo: {
-    flexGrow: 1,
-    flexShrink: 0,
-    marginLeft: 16,
-    marginRight: 16,
-  },
-  ButtonOutlinefM: {
+  ButtonOutline8c7ccbe1: {
     backgroundColor: 'transparent',
     borderRadius: 8,
+    borderWidth: 1,
     fontFamily: 'System',
     fontWeight: '700',
-    borderWidth: 1,
-    textAlign: 'center',
     marginLeft: 16,
     marginRight: 16,
     marginTop: 16,
-  },
-  TextUK: {
     textAlign: 'center',
+  },
+  Divider74c6b3f7: {
+    height: 1,
+    marginTop: 16,
+  },
+  Text52201420: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 20,
+    marginBottom: 0,
+    marginTop: 16,
+  },
+  Text58d1d82f: {
+    fontFamily: 'System',
+    fontWeight: '600',
+  },
+  Text85f21c07: {
     fontFamily: 'System',
     fontWeight: '400',
-    paddingTop: 16,
     paddingBottom: 16,
+    paddingTop: 16,
+    textAlign: 'center',
   },
-  ViewG9: {
-    marginBottom: 32,
-    marginTop: 32,
+  Textae4175fe: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    marginLeft: 0,
+    opacity: 0.45,
+  },
+  Textcdcede10: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    fontSize: 20,
+    marginTop: 16,
+  },
+  Texte5186bff: {
+    fontFamily: 'System',
+    fontWeight: '600',
+    marginLeft: 0,
+  },
+  Textf37ed692: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 20,
+    lineHeight: 24,
+    paddingLeft: 12,
+  },
+  View2b260bc9: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    opacity: 0.47,
+    paddingLeft: 0,
+  },
+  View30e24516: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 16,
+    opacity: 0.5,
+    paddingLeft: 0,
+  },
+  View7a442f6d: {
+    alignContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
     marginLeft: 16,
     marginRight: 16,
+    marginTop: 28,
+    paddingBottom: 16,
+    paddingTop: 0,
+  },
+  View7d6a39b7: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  Viewa2062c83: {
+    marginBottom: 32,
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 32,
+  },
+  Viewa3efd197: {
+    flexDirection: 'row',
+    height: 32,
+    justifyContent: 'space-between',
+  },
+  Viewdc97c93f: {
+    flexGrow: 1,
+    flexShrink: 0,
+    marginLeft: 16,
+    marginRight: 16,
+  },
+  Viewf0e1e0e6: {
+    flexDirection: 'row',
+    height: 32,
+    justifyContent: 'space-between',
+    opacity: 0.5,
   },
 });
 

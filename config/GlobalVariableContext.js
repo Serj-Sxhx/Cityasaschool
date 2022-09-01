@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const DeviceVariables = {
   AUTHORIZATION_HEADER:
-    'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjU3ODkwOTEwLCJzdWIiOiJlZTU5OWE5YS1jNzk2LTQ0YzMtODZlZC0yMGEzYzM1ZWNjZTkiLCJlbWFpbCI6InJhaHVsc0BsaXZlLmNhIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.rqJ0AbbHxujYw80uzM4zrb6NTXrcT1EIqm3UN9i35X4',
+    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNjYyMDcxNTc1LCJzdWIiOiJlZTU5OWE5YS1jNzk2LTQ0YzMtODZlZC0yMGEzYzM1ZWNjZTkiLCJlbWFpbCI6InJhaHVsc0BsaXZlLmNhIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6e30sInJvbGUiOiJhdXRoZW50aWNhdGVkIn0.RWohgo_tynz8UJoo0NLqh_uHN17dIJYgKmXCssEFm-4',
+  EMAIL: '',
+  UUID: 'ee599a9a-c796-44c3-86ed-20a3c35ecce9',
 };
 const AppVariables = {
-  profilePosts: '',
   Api_Key_Header:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF0aHZvdW9uaHNoa3ZiYXVncmhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTUyOTQ3OTUsImV4cCI6MTk3MDg3MDc5NX0.qlFLjO6sBHJWx_oaEiF1r4QLaNKRKrnEIwUQRvIQrpI',
   ERROR_MESSAGE: '',
+  profilePosts: '',
 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
@@ -96,6 +98,14 @@ class State {
 export function GlobalVariableProvider({ children }) {
   const [state, dispatch] = React.useReducer(State.reducer, State.initialState);
 
+  React.useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+    }
+
+    prepare();
+  }, []);
+
   // This effect runs on mount to overwrite the default value of any
   // key that has a local value.
   React.useEffect(() => {
@@ -126,14 +136,23 @@ export function GlobalVariableProvider({ children }) {
     }
   }, [state]);
 
+  const onLayoutRootView = React.useCallback(async () => {
+    if (state.__loaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [state.__loaded]);
+
   // We won't want an app to read a default state when there might be one
   // incoming from storage.
   if (!state.__loaded) {
-    return <AppLoading />;
+    return null;
   }
 
   return (
-    <GlobalVariableUpdater.Provider value={dispatch}>
+    <GlobalVariableUpdater.Provider
+      value={dispatch}
+      onLayout={onLayoutRootView}
+    >
       <GlobalVariableContext.Provider value={state.values}>
         {children}
       </GlobalVariableContext.Provider>

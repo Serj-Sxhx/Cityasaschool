@@ -1,5 +1,4 @@
 import React from 'react';
-import * as ExampleSavedPropertiesApi from '../apis/ExampleSavedPropertiesApi.js';
 import {
   ButtonSolid,
   IconButton,
@@ -8,9 +7,7 @@ import {
   Touchable,
   withTheme,
 } from '@draftbit/ui';
-import { useIsFocused } from '@react-navigation/native';
 import {
-  ActivityIndicator,
   FlatList,
   ImageBackground,
   StyleSheet,
@@ -32,9 +29,10 @@ const InboxScreen_nUFQ9fGj = props => {
       hasSafeArea={false}
       hasTopSafeArea={true}
     >
-      <View style={styles.Viewnd}>
-        <View style={[styles.Viewne, { borderRadius: 8 }]}>
-          <View style={styles.ViewlO}>
+      {/* backBar */}
+      <View style={styles.Viewe6b20937}>
+        <View style={[styles.Viewac9f1ff4, { borderRadius: 8 }]}>
+          <View style={styles.Viewcaa0afd5}>
             <IconButton
               onPress={() => {
                 try {
@@ -43,21 +41,21 @@ const InboxScreen_nUFQ9fGj = props => {
                   console.error(err);
                 }
               }}
+              color={theme.colors.dark}
               icon={'AntDesign/left'}
               size={24}
-              color={theme.colors.dark}
             />
-            <Text style={[styles.TextbA, { color: theme.colors.dark }]}>
+            <Text style={[styles.Text21c8e5a2, { color: theme.colors.dark }]}>
               {'Inbox'}
             </Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.View_7k}>
+      <View style={styles.View60451373}>
         <View
           style={[
-            styles.ViewaM,
+            styles.View50ca9e9d,
             {
               backgroundColor: theme.colors.divider,
               borderRadius: 0,
@@ -65,22 +63,24 @@ const InboxScreen_nUFQ9fGj = props => {
             },
           ]}
         >
-          <View style={styles.View_5s}>
+          <View style={styles.View47eccd08}>
+            {/* LeftButtonActive */}
             <>
               {showList ? null : (
                 <ButtonSolid
                   style={[
-                    styles.ButtonSolid_7X,
+                    styles.ButtonSolid191e6415,
                     {
-                      backgroundColor: theme.colors.surface,
                       color: theme.colors.primary,
                       borderColor: theme.colors.primary,
+                      backgroundColor: theme.colors.surface,
                     },
                   ]}
                   title={'Messages'}
                 />
               )}
             </>
+            {/* LeftButtonInactive */}
             <>
               {!showList ? null : (
                 <ButtonSolid
@@ -92,7 +92,7 @@ const InboxScreen_nUFQ9fGj = props => {
                     }
                   }}
                   style={[
-                    styles.ButtonSolidbs,
+                    styles.ButtonSolidf27900c1,
                     {
                       backgroundColor: theme.colors.surface,
                       color: theme.colors.medium,
@@ -104,12 +104,13 @@ const InboxScreen_nUFQ9fGj = props => {
             </>
           </View>
 
-          <View style={styles.Viewqn}>
+          <View style={styles.Viewc992f941}>
+            {/* RightButtonActive */}
             <>
               {!showList ? null : (
                 <ButtonSolid
                   style={[
-                    styles.ButtonSolidI2,
+                    styles.ButtonSolid90931bef,
                     {
                       backgroundColor: theme.colors.surface,
                       color: theme.colors.primary,
@@ -120,6 +121,7 @@ const InboxScreen_nUFQ9fGj = props => {
                 />
               )}
             </>
+            {/* RightButtonInactive */}
             <>
               {showList ? null : (
                 <ButtonSolid
@@ -131,10 +133,10 @@ const InboxScreen_nUFQ9fGj = props => {
                     }
                   }}
                   style={[
-                    styles.ButtonSolidVG,
+                    styles.ButtonSolid8d12dc72,
                     {
-                      backgroundColor: theme.colors.surface,
                       color: theme.colors.medium,
+                      backgroundColor: theme.colors.surface,
                     },
                   ]}
                   title={'Notifications'}
@@ -144,374 +146,176 @@ const InboxScreen_nUFQ9fGj = props => {
           </View>
         </View>
       </View>
-
-      <ExampleSavedPropertiesApi.FetchSavedPropertiesGET
-        method={'GET'}
-        limit={16}
-      >
-        {({ loading, error, data, refetchSavedProperties }) => {
-          const fetchData = data;
-          if (!fetchData || loading) {
-            return <ActivityIndicator />;
-          }
-
-          if (error) {
-            return (
-              <Text style={{ textAlign: 'center' }}>
-                There was a problem fetching this data
-              </Text>
-            );
-          }
-
-          return (
-            <>
-              <>
-                {showList ? null : (
-                  <FlatList
-                    data={fetchData}
-                    listKey={'z0sdgSIC'}
-                    keyExtractor={({ item }) => item?.id || item?.uuid || item}
-                    renderItem={({ item }) => {
-                      const gridData = item;
-                      return (
-                        <View style={styles.Viewek}>
-                          <Touchable>
-                            <View
-                              style={[
-                                styles.ViewIl,
-                                {
-                                  borderRadius: 12,
-                                  borderColor: theme.colors.divider,
-                                  backgroundColor: theme.colors.surface,
-                                },
-                              ]}
-                            >
-                              <View style={styles.ViewlB}>
-                                <ImageBackground
-                                  style={styles.ImageBackgrounda5}
-                                  source={{
-                                    uri: `${gridData?.properties?.image_url}`,
-                                  }}
-                                  resizeMode={'cover'}
-                                />
-                              </View>
-
-                              <View style={styles.View_2C}>
-                                <Text
-                                  style={[
-                                    styles.Textya,
-                                    { color: theme.colors.dark },
-                                  ]}
-                                  numberOfLines={1}
-                                  ellipsizeMode={'tail'}
-                                >
-                                  {gridData?.properties?.name}{' '}
-                                </Text>
-
-                                <View style={styles.Viewwh}>
-                                  <Text
-                                    style={[
-                                      styles.TextKA,
-                                      { color: theme.colors.primary },
-                                    ]}
-                                  >
-                                    {'$'}
-                                    {gridData?.properties?.nightly_price}
-                                  </Text>
-
-                                  <Text
-                                    style={[
-                                      styles.TextxG,
-                                      { color: theme.colors.primary },
-                                    ]}
-                                  >
-                                    {'/night'}
-                                  </Text>
-                                </View>
-                              </View>
-                            </View>
-                          </Touchable>
-                        </View>
-                      );
-                    }}
-                    contentContainerStyle={styles.FlatListz0Content}
-                    numColumns={2}
-                  />
-                )}
-              </>
-              <>
-                {!showList ? null : (
-                  <FlatList
-                    data={fetchData}
-                    listKey={'atJpx918'}
-                    keyExtractor={({ item }) => item?.id || item?.uuid || item}
-                    renderItem={({ item }) => {
-                      const listData = item;
-                      return (
-                        <>
-                          <View style={styles.ViewMf}>
-                            <Touchable>
-                              <View
-                                style={[
-                                  styles.ViewXV,
-                                  {
-                                    borderRadius: 12,
-                                    borderColor: theme.colors.divider,
-                                    backgroundColor: theme.colors.surface,
-                                  },
-                                ]}
-                              >
-                                <View style={styles.ViewFK}>
-                                  <ImageBackground
-                                    style={styles.ImageBackgroundVt}
-                                    source={{
-                                      uri: `${listData?.properties?.image_url}`,
-                                    }}
-                                    resizeMode={'cover'}
-                                  />
-                                </View>
-
-                                <View style={styles.ViewlZ}>
-                                  <Text
-                                    style={[
-                                      styles.Textjx,
-                                      { color: theme.colors.light },
-                                    ]}
-                                  >
-                                    {listData?.properties?.city}
-                                  </Text>
-
-                                  <Text
-                                    style={[
-                                      styles.TextHS,
-                                      { color: theme.colors.dark },
-                                    ]}
-                                    numberOfLines={1}
-                                    ellipsizeMode={'tail'}
-                                  >
-                                    {listData?.properties?.name}{' '}
-                                  </Text>
-
-                                  <View style={styles.ViewoC}>
-                                    <Text
-                                      style={[
-                                        styles.TextMJ,
-                                        { color: theme.colors.primary },
-                                      ]}
-                                    >
-                                      {'$'}
-                                      {listData?.properties?.nightly_price}
-                                    </Text>
-
-                                    <Text
-                                      style={[
-                                        styles.TextvB,
-                                        { color: theme.colors.primary },
-                                      ]}
-                                    >
-                                      {'/night'}
-                                    </Text>
-                                  </View>
-                                </View>
-                              </View>
-                            </Touchable>
-                          </View>
-                          <Spacer top={8} right={8} bottom={8} left={8} />
-                        </>
-                      );
-                    }}
-                    contentContainerStyle={styles.FlatListatContent}
-                  />
-                )}
-              </>
-            </>
-          );
-        }}
-      </ExampleSavedPropertiesApi.FetchSavedPropertiesGET>
     </ScreenContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  TextbA: {
-    fontSize: 20,
+  ButtonSolid191e6415: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 0,
+    borderRadius: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    fontFamily: 'System',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  ButtonSolid8d12dc72: {
+    borderRadius: 0,
+    fontFamily: 'System',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  ButtonSolid90931bef: {
+    borderBottomWidth: 1,
+    borderRadius: 0,
+    fontFamily: 'System',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  ButtonSolidf27900c1: {
+    borderRadius: 0,
+    fontFamily: 'System',
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  FlatList7591d95eContent: {
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 8,
+  },
+  FlatListe6b20937Content: {
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
+  },
+  ImageBackgrounda98db7de: {
+    height: '100%',
+    width: '100%',
+  },
+  Text21c8e5a2: {
     fontFamily: 'System',
     fontWeight: '600',
+    fontSize: 20,
     marginLeft: 8,
   },
-  ViewlO: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewne: {
-    paddingLeft: 0,
-    paddingBottom: 6,
-    paddingRight: 0,
-    paddingTop: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Viewnd: {
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-  },
-  ButtonSolid_7X: {
-    borderRadius: 0,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderBottomWidth: 1,
-  },
-  ButtonSolidbs: {
-    borderRadius: 0,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  View_5s: {
-    flex: 1,
-    opacity: 1,
-  },
-  ButtonSolidI2: {
-    borderRadius: 0,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-    borderBottomWidth: 1,
-  },
-  ButtonSolidVG: {
-    borderRadius: 0,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-  },
-  Viewqn: {
-    flex: 1,
-  },
-  ViewaM: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 0,
-    paddingTop: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-  },
-  View_7k: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-  ImageBackgrounda5: {
-    width: '100%',
-    height: '100%',
-  },
-  ViewlB: {
-    height: 140,
-  },
-  Textya: {
-    fontFamily: 'Poppins_600SemiBold',
-    fontSize: 12,
-  },
-  TextKA: {
-    fontFamily: 'Poppins_600SemiBold',
-  },
-  TextxG: {
+  Text3a7d0e3b: {
     fontFamily: 'Poppins_500Medium',
-    fontSize: 10,
+    fontSize: 14,
   },
-  Viewwh: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  Text4ff4a91f: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 14,
   },
-  View_2C: {
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingTop: 12,
-    paddingBottom: 12,
-    justifyContent: 'space-between',
-    flex: 1,
-  },
-  ViewIl: {
-    overflow: 'hidden',
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-  },
-  Viewek: {
-    flex: 1,
-    paddingLeft: 8,
-    paddingTop: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
-  },
-  FlatListz0Content: {
-    paddingLeft: 8,
-    paddingTop: 8,
-    paddingRight: 8,
-    paddingBottom: 8,
-  },
-  ImageBackgroundVt: {
-    width: '100%',
-    height: '100%',
-  },
-  ViewFK: {
-    flex: 1,
-  },
-  Textjx: {
+  Text52b0b843: {
     fontFamily: 'Poppins_400Regular',
     fontSize: 10,
   },
-  TextHS: {
-    fontFamily: 'Poppins_500Medium',
-    fontSize: 14,
-  },
-  TextMJ: {
+  Textc28cf954: {
     fontFamily: 'Poppins_600SemiBold',
-    fontSize: 14,
+    fontSize: 12,
   },
-  TextvB: {
+  Textc3380ce3: {
+    fontFamily: 'Poppins_600SemiBold',
+  },
+  Textc430b794: {
     fontFamily: 'Poppins_500Medium',
     fontSize: 10,
   },
-  ViewoC: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
+  View47eccd08: {
+    flex: 1,
+    opacity: 1,
   },
-  ViewlZ: {
+  View50ca9e9d: {
+    alignItems: 'center',
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderTopWidth: 0,
+    flexDirection: 'row',
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+  },
+  View5152e902: {
+    height: 140,
+  },
+  View60451373: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  View622532bb: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    overflow: 'hidden',
+  },
+  View6af843ad: {
+    flex: 3,
+    justifyContent: 'center',
+    paddingBottom: 12,
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 12,
-    paddingBottom: 12,
-    flex: 3,
-    justifyContent: 'center',
   },
-  ViewXV: {
+  View76d90f06: {
+    alignItems: 'center',
     flexDirection: 'row',
-    overflow: 'hidden',
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
+    marginTop: 4,
   },
-  ViewMf: {
+  View7d6a39b7: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  Viewa4bdd040: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    overflow: 'hidden',
+  },
+  Viewac9f1ff4: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    paddingBottom: 6,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 6,
+  },
+  Viewb7efd8d7: {
+    flex: 1,
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 8,
+  },
+  Viewc992f941: {
     flex: 1,
   },
-  FlatListatContent: {
-    paddingLeft: 16,
-    paddingTop: 16,
-    paddingRight: 16,
+  Viewcaa0afd5: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
+  Viewd8f97984: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 12,
+  },
+  Viewe6b20937: {
     paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
   },
 });
 

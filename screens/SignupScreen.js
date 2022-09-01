@@ -18,7 +18,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const SignupScreen = props => {
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
-
   const setGlobalVariableValue = GlobalVariables.useSetValue();
   const inputValidation = () => {
     const expr =
@@ -61,7 +60,9 @@ const SignupScreen = props => {
       setEmailError('');
     }
     if (!passwordExpr.test(passwordInput)) {
-      setPasswordError('Password does not meet the criteria');
+      setPasswordError(
+        'Password should be at least 8 characters in length, contain at least 1 letter and at least 1 number.'
+      );
       foundError = true;
     } else {
       setPasswordError('');
@@ -105,37 +106,45 @@ const SignupScreen = props => {
   const [passwordError, setPasswordError] = React.useState('');
   const [passwordInput, setPasswordInput] = React.useState('');
   const [pickerValue, setPickerValue] = React.useState('Select An Option');
+  const [styledTextFieldValue, setStyledTextFieldValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const [textInputValue2, setTextInputValue2] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [usernameError, setUsernameError] = React.useState('');
 
   return (
-    <ScreenContainer>
+    <ScreenContainer hasTopSafeArea={true} hasBottomSafeArea={true}>
       <KeyboardAwareScrollView
-        contentContainerStyle={styles.KeyboardAwareScrollViewXVContent}
+        contentContainerStyle={styles.KeyboardAwareScrollView2b66e99eContent}
       >
-        <View style={styles.ViewT8}>
+        {/* Header */}
+        <View style={styles.View3a80ccbf}>
+          {/* Title */}
           <Text
-            style={[styles.TextTb, { color: theme.colors.custom_rgb0_0_0 }]}
+            style={[
+              styles.Textd55eaa29,
+              { color: theme.colors.custom_rgb0_0_0 },
+            ]}
           >
             {'Sign up'}
           </Text>
-
-          <Text style={[styles.Textd7, { color: theme.colors.dark }]}>
+          {/* Subtitle */}
+          <Text style={[styles.Text813c86e8, { color: theme.colors.dark }]}>
             {"it's quick an easy."}
           </Text>
         </View>
-
-        <View style={styles.ViewiM}>
-          <Text style={[styles.TextK3, { color: theme.colors.error }]}>
-            {Constants['ERROR_MESSAGE']}
-          </Text>
-
-          <View style={styles.Viewlv}>
-            <View style={styles.View_2k}>
-              <Text style={[styles.TextQk, { color: theme.colors.lightGrey }]}>
+        {/* Register Form */}
+        <View style={styles.View8b2fbf69}>
+          {/* Name */}
+          <View style={styles.Viewdebd3207}>
+            <View style={styles.View181c781b}>
+              {/* interMedium1619FirstName */}
+              <Text
+                style={[styles.Text3b1ff5ae, { color: theme.colors.lightGrey }]}
+              >
                 {'First Name'}
               </Text>
+              {/* First Name Input */}
               <TextInput
                 onChangeText={newFirstNameInputValue => {
                   try {
@@ -146,26 +155,35 @@ const SignupScreen = props => {
                   }
                 }}
                 style={[
-                  styles.TextInputHv,
+                  styles.TextInput9b87bd7c,
                   {
-                    borderColor: theme.colors.lightGrey,
-                    backgroundColor: theme.colors.divider,
+                    color: theme.colors.text,
+                    backgroundColor: theme.colors.grayLine,
+                    borderRadius: 8,
+                    borderColor: theme.colors.grayLine,
                   },
                 ]}
                 placeholder={'First Name'}
                 value={firstNameInput}
                 autoCapitalize={'words'}
-                placeholderTextColor={theme.colors.lightGrey}
+                placeholderTextColor={theme.colors.custom_rgb170_170_170}
               />
-              <Text style={[styles.TextZ5, { color: theme.colors.error }]}>
+              {/* First Name Error */}
+              <Text
+                style={[styles.Text117112a1, { color: theme.colors.error }]}
+              >
                 {firstNameError}
               </Text>
             </View>
 
-            <View style={styles.ViewpQ}>
-              <Text style={[styles.Textl6, { color: theme.colors.lightGrey }]}>
+            <View style={styles.Viewc992f941}>
+              {/* interMedium1619 */}
+              <Text
+                style={[styles.Text7c3d1ba8, { color: theme.colors.lightGrey }]}
+              >
                 {'Last Name'}
               </Text>
+              {/* Last Name Input */}
               <TextInput
                 onChangeText={newLastNameInputValue => {
                   try {
@@ -176,10 +194,10 @@ const SignupScreen = props => {
                   }
                 }}
                 style={[
-                  styles.TextInputoa,
+                  styles.TextInputf07c857f,
                   {
-                    borderColor: theme.colors.lightGrey,
-                    backgroundColor: theme.colors.divider,
+                    borderColor: theme.colors.grayLine,
+                    backgroundColor: theme.colors.grayLine,
                   },
                 ]}
                 placeholder={'Last Name'}
@@ -187,16 +205,24 @@ const SignupScreen = props => {
                 autoCapitalize={'words'}
                 placeholderTextColor={theme.colors.lightGrey}
               />
-              <Text style={[styles.TextyL, { color: theme.colors.error }]}>
+              {/* Last Name Error */}
+              <Text
+                style={[styles.Text117112a1, { color: theme.colors.error }]}
+              >
                 {lastNameError}
               </Text>
             </View>
           </View>
-          <Spacer top={12} right={8} bottom={12} left={8} />
+          <Spacer top={9} bottom={0} left={0} right={0} />
+          {/* Username */}
           <View>
-            <Text style={[styles.TextbS, { color: theme.colors.lightGrey }]}>
+            {/* interMedium1619 */}
+            <Text
+              style={[styles.Text7c3d1ba8, { color: theme.colors.lightGrey }]}
+            >
               {'Username*'}
             </Text>
+            {/* Username */}
             <TextInput
               onChangeText={newUsernameValue => {
                 try {
@@ -207,33 +233,38 @@ const SignupScreen = props => {
                 }
               }}
               style={[
-                styles.TextInputDC,
+                styles.TextInputed8274da,
                 {
-                  borderColor: theme.colors.strong,
-                  backgroundColor: theme.colors.divider,
+                  borderColor: theme.colors.grayLine,
+                  backgroundColor: theme.colors.grayLine,
                 },
               ]}
               placeholder={'@username'}
               value={username}
             />
-            <Text style={[styles.Textci, { color: theme.colors.error }]}>
+            {/* Username Error */}
+            <Text style={[styles.Text117112a1, { color: theme.colors.error }]}>
               {usernameError}
             </Text>
           </View>
-          <Spacer top={12} right={8} bottom={12} left={8} />
-          <View style={styles.ViewtH}>
-            <View style={styles.Viewmr}>
-              <Text style={[styles.Text_0m, { color: theme.colors.lightGrey }]}>
+          <Spacer top={9} left={0} right={0} bottom={0} />
+          {/* Birthday/Gender */}
+          <View style={styles.Viewdebd3207}>
+            <View style={styles.View181c781b}>
+              {/* interMedium1619 */}
+              <Text
+                style={[styles.Textf764a0d8, { color: theme.colors.lightGrey }]}
+              >
                 {'Birthday'}
               </Text>
 
               <View
                 style={[
-                  styles.Viewc8,
+                  styles.View5e4519a9,
                   {
-                    backgroundColor: theme.colors.divider,
                     borderRadius: 8,
-                    borderColor: theme.colors.lightGrey,
+                    backgroundColor: theme.colors.grayLine,
+                    borderColor: theme.colors.grayLine,
                   },
                 ]}
               >
@@ -254,18 +285,21 @@ const SignupScreen = props => {
               </View>
             </View>
 
-            <View style={styles.ViewBF}>
-              <Text style={[styles.Textbc, { color: theme.colors.lightGrey }]}>
+            <View style={styles.Viewc992f941}>
+              {/* interMedium1619 */}
+              <Text
+                style={[styles.Textf764a0d8, { color: theme.colors.lightGrey }]}
+              >
                 {'Gender'}
               </Text>
 
               <View
                 style={[
-                  styles.ViewRF,
+                  styles.View21ee1ae5,
                   {
-                    backgroundColor: theme.colors.divider,
                     borderRadius: 8,
-                    borderColor: theme.colors.lightGrey,
+                    backgroundColor: theme.colors.grayLine,
+                    borderColor: theme.colors.grayLine,
                   },
                 ]}
               >
@@ -278,6 +312,10 @@ const SignupScreen = props => {
                       console.error(err);
                     }
                   }}
+                  style={[
+                    styles.Picker45def6f9,
+                    { borderColor: theme.colors.grayLine },
+                  ]}
                   options={GenderPickerValues}
                   value={pickerValue}
                   placeholder={'Select an option'}
@@ -286,17 +324,18 @@ const SignupScreen = props => {
                   iconSize={24}
                 />
               </View>
-
-              <Text style={[styles.TextwA, { color: theme.colors.error }]}>
-                {genderError}
-              </Text>
             </View>
           </View>
-          <Spacer top={12} right={8} bottom={12} left={8} />
-          <View>
-            <Text style={[styles.TextnT, { color: theme.colors.lightGrey }]}>
+          <Spacer top={9} bottom={0} left={0} right={0} />
+          {/* Email */}
+          <View style={styles.Viewb10b7c6c}>
+            {/* interMedium1619 */}
+            <Text
+              style={[styles.Textf764a0d8, { color: theme.colors.lightGrey }]}
+            >
               {'Email'}
             </Text>
+            {/* Email Input */}
             <TextInput
               onChangeText={newEmailInputValue => {
                 try {
@@ -307,10 +346,10 @@ const SignupScreen = props => {
                 }
               }}
               style={[
-                styles.TextInputsw,
+                styles.TextInputf1148485,
                 {
-                  borderColor: theme.colors.lightGrey,
-                  backgroundColor: theme.colors.divider,
+                  borderColor: theme.colors.grayLine,
+                  backgroundColor: theme.colors.grayLine,
                 },
               ]}
               placeholder={'Enter your email'}
@@ -320,15 +359,21 @@ const SignupScreen = props => {
               textContentType={'emailAddress'}
               placeholderTextColor={theme.colors.lightGrey}
             />
-            <Text style={[styles.TextAn, { color: theme.colors.error }]}>
+            {/* Email Error */}
+            <Text style={[styles.Text117112a1, { color: theme.colors.error }]}>
               {emailError}
             </Text>
           </View>
-          <Spacer top={12} right={8} bottom={8} left={8} />
+          <Spacer bottom={0} left={0} top={9} right={8} />
+          {/* Password Frame */}
           <View>
-            <Text style={[styles.Text_4a, { color: theme.colors.lightGrey }]}>
+            {/* interMedium1619 */}
+            <Text
+              style={[styles.Textf764a0d8, { color: theme.colors.lightGrey }]}
+            >
               {'Password'}
             </Text>
+            {/* Password Input */}
             <TextInput
               onChangeText={newPasswordInputValue => {
                 try {
@@ -339,10 +384,10 @@ const SignupScreen = props => {
                 }
               }}
               style={[
-                styles.TextInputtx,
+                styles.TextInputf1148485,
                 {
-                  borderColor: theme.colors.lightGrey,
-                  backgroundColor: theme.colors.divider,
+                  borderColor: theme.colors.grayLine,
+                  backgroundColor: theme.colors.grayLine,
                 },
               ]}
               placeholder={'New password'}
@@ -352,144 +397,188 @@ const SignupScreen = props => {
               textContentType={'password'}
               placeholderTextColor={theme.colors.lightGrey}
             />
-            <Text style={[styles.TextbO, { color: theme.colors.error }]}>
+            {/* Password Error */}
+            <Text style={[styles.Text117112a1, { color: theme.colors.error }]}>
               {passwordError}
             </Text>
+            {/* interMedium1619 */}
+            <Text
+              style={[styles.Text85fe9819, { color: theme.colors.lightGrey }]}
+            >
+              {null}
+            </Text>
           </View>
-          <Spacer top={24} right={8} bottom={24} left={8} />
+          <Spacer left={0} right={0} top={9} bottom={0} />
+          {/* Sign Up Button */}
           <>
             {isLoading ? null : (
               <ButtonSolid
-                onPress={async () => {
-                  try {
-                    if (inputValidation()) {
-                      return;
-                    }
-                    const signupResponseJson =
-                      await RestAPISupabaseApi.signupPOST(Constants, {
-                        signupEmail: emailInput,
-                        signupFirstName: firstNameInput,
-                        signupLastName: lastNameInput,
-                        signupPassword: passwordInput,
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      if (inputValidation()) {
+                        return;
+                      }
+                      const signupResponseJson =
+                        await RestAPISupabaseApi.signupPOST(Constants, {
+                          signupEmail: emailInput,
+                          signupFirstName: firstNameInput,
+                          signupLastName: lastNameInput,
+                          signupPassword: passwordInput,
+                        });
+                      setIsLoading(true);
+                      const message = signupResponseJson.msg;
+                      const accessToken = signupResponseJson.access_token;
+                      setGlobalVariableValue({
+                        key: 'ERROR_MESSAGE',
+                        value: message,
                       });
-                    setIsLoading(true);
-                    const message = signupResponseJson.msg;
-                    const accessToken = signupResponseJson.access_token;
-                    setGlobalVariableValue({
-                      key: 'ERROR_MESSAGE',
-                      value: message,
-                    });
-                    console.log(signupResponseJson);
-                    setGlobalVariableValue({
-                      key: 'AUTHORIZATION_HEADER',
-                      value: 'Bearer ' + accessToken,
-                    });
-                    const userId = signupResponseJson.user.id;
-                    if (!accessToken) {
-                      return;
+                      console.log(signupResponseJson);
+                      setGlobalVariableValue({
+                        key: 'AUTHORIZATION_HEADER',
+                        value: 'Bearer ' + accessToken,
+                      });
+                      const userId = signupResponseJson.user.id;
+                      setIsLoading(false);
+                      if (!accessToken) {
+                        return;
+                      }
+                      setGlobalVariableValue({
+                        key: 'ERROR_MESSAGE',
+                        value: '',
+                      });
+                      await RestAPISupabaseApi.addProfileDataPOST(Constants, {
+                        birthday: datePickerValue,
+                        email: emailInput,
+                        firstName: firstNameInput,
+                        gender: pickerValue,
+                        lastName: lastNameInput,
+                        userId: userId,
+                        username: username,
+                      });
+                      setGlobalVariableValue({
+                        key: 'UUID',
+                        value: userId,
+                      });
+                      setGlobalVariableValue({
+                        key: 'EMAIL',
+                        value: emailInput,
+                      });
+                      navigation.navigate('OnboardingScreen');
+                    } catch (err) {
+                      console.error(err);
                     }
-                    setGlobalVariableValue({
-                      key: 'ERROR_MESSAGE',
-                      value: '',
-                    });
-                    await RestAPISupabaseApi.addProfileDataPOST(Constants, {
-                      birthday: datePickerValue,
-                      email: emailInput,
-                      firstName: firstNameInput,
-                      gender: pickerValue,
-                      lastName: lastNameInput,
-                      userId: userId,
-                      username: username,
-                    });
-                    setIsLoading(false);
-                    navigation.navigate('OnboardingScreen');
-                  } catch (err) {
-                    console.error(err);
-                  }
+                  };
+                  handler();
                 }}
                 style={[
-                  styles.ButtonSolid_7S,
+                  styles.ButtonSolidbba078e6,
                   { backgroundColor: theme.colors.primary },
                 ]}
                 title={'Sign up'}
               />
             )}
           </>
+          {/* Sign Up Button */}
           <>
             {!isLoading ? null : (
               <ButtonSolid
-                onPress={async () => {
-                  try {
-                    if (inputValidation()) {
-                      return;
-                    }
-                    const signupResponseJson =
-                      await RestAPISupabaseApi.signupPOST(Constants, {
-                        signupEmail: emailInput,
-                        signupFirstName: firstNameInput,
-                        signupLastName: lastNameInput,
-                        signupPassword: passwordInput,
+                onPress={() => {
+                  const handler = async () => {
+                    try {
+                      if (inputValidation()) {
+                        return;
+                      }
+                      const signupResponseJson =
+                        await RestAPISupabaseApi.signupPOST(Constants, {
+                          signupEmail: emailInput,
+                          signupFirstName: firstNameInput,
+                          signupLastName: lastNameInput,
+                          signupPassword: passwordInput,
+                        });
+                      const message = signupResponseJson.msg;
+                      const accessToken = signupResponseJson.access_token;
+                      setGlobalVariableValue({
+                        key: 'ERROR_MESSAGE',
+                        value: message,
                       });
-                    const message = signupResponseJson.msg;
-                    const accessToken = signupResponseJson.access_token;
-                    setGlobalVariableValue({
-                      key: 'ERROR_MESSAGE',
-                      value: message,
-                    });
-                    console.log(signupResponseJson);
-                    setGlobalVariableValue({
-                      key: 'AUTHORIZATION_HEADER',
-                      value: 'Bearer ' + accessToken,
-                    });
-                    const userId = signupResponseJson.user.id;
-                    if (!accessToken) {
-                      return;
+                      console.log(signupResponseJson);
+                      setGlobalVariableValue({
+                        key: 'AUTHORIZATION_HEADER',
+                        value: 'Bearer ' + accessToken,
+                      });
+                      const userId = signupResponseJson.user.id;
+                      if (!accessToken) {
+                        return;
+                      }
+                      setGlobalVariableValue({
+                        key: 'ERROR_MESSAGE',
+                        value: '',
+                      });
+                      await RestAPISupabaseApi.addProfileDataPOST(Constants, {
+                        birthday: datePickerValue,
+                        email: emailInput,
+                        firstName: firstNameInput,
+                        gender: pickerValue,
+                        lastName: lastNameInput,
+                        userId: userId,
+                        username: username,
+                      });
+                      navigation.navigate('OnboardingScreen');
+                    } catch (err) {
+                      console.error(err);
                     }
-                    setGlobalVariableValue({
-                      key: 'ERROR_MESSAGE',
-                      value: '',
-                    });
-                    await RestAPISupabaseApi.addProfileDataPOST(Constants, {
-                      birthday: datePickerValue,
-                      email: emailInput,
-                      firstName: firstNameInput,
-                      gender: pickerValue,
-                      lastName: lastNameInput,
-                      userId: userId,
-                      username: username,
-                    });
-                    navigation.navigate('OnboardingScreen');
+                  };
+                  handler();
+                }}
+                style={[
+                  styles.ButtonSolid50ad4458,
+                  { backgroundColor: theme.colors.primary },
+                ]}
+                disabled={true}
+                loading={true}
+                title={'Signing up'}
+              />
+            )}
+          </>
+          {/* LinkText */}
+          <View style={styles.View188f4a1f}>
+            <Text style={{ color: theme.colors.strong }}>
+              {'Already have an account '}
+              <Link
+                onPress={() => {
+                  try {
+                    navigation.navigate('LoginScreen');
                   } catch (err) {
                     console.error(err);
                   }
                 }}
-                style={[
-                  styles.ButtonSolidCz,
-                  { backgroundColor: theme.colors.primary },
-                ]}
-                title={'Signing up'}
-                disabled={true}
-                loading={true}
+                style={[styles.Link4d0ff1a2, { color: theme.colors.primary }]}
+                title={'Sign in'}
               />
-            )}
-          </>
-          <Spacer top={16} right={8} bottom={16} left={8} />
-          <View style={styles.View_1b}>
-            <Text style={[styles.TextRN, { color: theme.colors.dark }]}>
-              {'Have an account?'}
             </Text>
-            <Spacer top={8} right={2} bottom={8} left={2} />
-            <Link
-              onPress={() => {
-                try {
-                  navigation.navigate('LoginScreen');
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              style={{ color: theme.colors.primary }}
-              title={'Sign in.'}
-            />
+          </View>
+          {/* LinkText */}
+          <View style={styles.Viewde0d9014}>
+            <Text style={{ color: theme.colors.strong }}>
+              {"By clicking Sign up, you are agreeing to City as a School's "}
+              <Link
+                style={[styles.Link4d0ff1a2, { color: theme.colors.primary }]}
+                title={'Terms of Service'}
+              />
+              <Text style={{ color: theme.colors.strong }}>
+                {' including our '}
+              </Text>
+              <Link
+                style={[styles.Link4d0ff1a2, { color: theme.colors.primary }]}
+                title={'Code of Conduct'}
+              />
+              <Text style={{ color: theme.colors.strong }}>{' and our '}</Text>
+              <Link
+                style={[styles.Link4d0ff1a2, { color: theme.colors.primary }]}
+                title={'Privacy Policy.'}
+              />
+            </Text>
           </View>
         </View>
       </KeyboardAwareScrollView>
@@ -498,203 +587,208 @@ const SignupScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  TextTb: {
+  ButtonSolid50ad4458: {
+    borderRadius: 8,
+    fontFamily: 'System',
+    fontWeight: '700',
+    paddingBottom: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 16,
     textAlign: 'center',
-    fontSize: 24,
-    fontFamily: 'Inter_600SemiBold',
-    lineHeight: 29,
   },
-  Textd7: {
+  ButtonSolidbba078e6: {
+    borderRadius: 8,
+    fontFamily: 'Montserrat_400Regular',
+    lineHeight: 17,
+    paddingBottom: 10,
+    paddingLeft: 42,
+    paddingRight: 42,
+    paddingTop: 10,
     textAlign: 'center',
+  },
+  KeyboardAwareScrollView2b66e99eContent: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  Link4d0ff1a2: {
+    marginLeft: 6,
+    marginRight: 6,
+  },
+  Picker45def6f9: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
     fontFamily: 'Inter_400Regular',
-    marginTop: 4,
     lineHeight: 17,
   },
-  ViewT8: {
-    paddingTop: 32,
+  Text117112a1: {
+    fontSize: 10,
+  },
+  Text30767d10: {
+    fontFamily: 'Inter_400Regular',
+    fontSize: 10,
+  },
+  Text3b1ff5ae: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 16,
+    lineHeight: 19,
+    marginBottom: 6,
+  },
+  Text6789b8ec: {
+    fontSize: 12,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  Text7c3d1ba8: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 16,
+    lineHeight: 19,
+    marginBottom: 6,
+  },
+  Text813c86e8: {
+    fontFamily: 'Inter_400Regular',
+    lineHeight: 17,
+    marginTop: 4,
+    textAlign: 'center',
+  },
+  Text85fe9819: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 12,
+    lineHeight: 19,
+    marginBottom: 6,
+    marginTop: 6,
+  },
+  TextInput9b87bd7c: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    fontFamily: 'Inter_400Regular',
+    lineHeight: 17,
+    paddingBottom: 12,
+    paddingLeft: 16,
+    paddingTop: 12,
+  },
+  TextInputed8274da: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    fontFamily: 'Montserrat_400Regular',
+    paddingBottom: 12,
+    paddingLeft: 16,
+    paddingTop: 12,
+  },
+  TextInputf07c857f: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    paddingBottom: 12,
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 12,
+  },
+  TextInputf1148485: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRadius: 8,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    paddingBottom: 12,
+    paddingLeft: 16,
+    paddingTop: 12,
+  },
+  Textbfc53ec2: {
+    fontFamily: 'Montserrat_400Regular',
+    lineHeight: 17,
+  },
+  Textd55eaa29: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 24,
+    lineHeight: 29,
+    textAlign: 'center',
+  },
+  Texte6e66ce0: {
+    alignSelf: 'flex-start',
+    fontFamily: 'Montserrat_400Regular',
+    lineHeight: 17,
+  },
+  Textf764a0d8: {
+    fontFamily: 'Inter_500Medium',
+    fontSize: 16,
+    lineHeight: 19,
+    marginBottom: 6,
+  },
+  Textffc38f6d: {
+    fontFamily: 'Montserrat_400Regular',
+    lineHeight: 17,
+  },
+  View0ae76333: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 30,
+  },
+  View181c781b: {
+    flex: 1,
+    marginRight: 16,
+  },
+  View188f4a1f: {
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    marginTop: 8,
+  },
+  View21ee1ae5: {
+    borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopWidth: 1,
+    flex: 1,
+    justifyContent: 'center',
+  },
+  View3a80ccbf: {
+    flexGrow: 0,
+    flexShrink: 0,
+    justifyContent: 'center',
+    marginTop: 27,
     paddingBottom: 32,
     paddingLeft: 16,
     paddingRight: 16,
-    justifyContent: 'center',
-    flexGrow: 0,
-    flexShrink: 0,
+    paddingTop: 32,
   },
-  TextK3: {
-    fontSize: 12,
-    textAlign: 'center',
-    marginBottom: 16,
+  View5b003073: {
+    flex: 0,
   },
-  TextQk: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-    fontSize: 16,
-    lineHeight: 19,
-  },
-  TextInputHv: {
+  View5e4519a9: {
+    borderBottomWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderTopWidth: 1,
-    borderBottomWidth: 1,
+    paddingLeft: 16,
+  },
+  View8b2fbf69: {
+    flex: 1,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
   },
-  TextZ5: {
-    fontSize: 10,
+  Viewb10b7c6c: {
+    marginTop: 9,
   },
-  View_2k: {
-    flex: 1,
-    marginRight: 24,
-  },
-  Textl6: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-  },
-  TextInputoa: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  TextyL: {
-    fontSize: 10,
-  },
-  ViewpQ: {
+  Viewc992f941: {
     flex: 1,
   },
-  Viewlv: {
+  Viewde0d9014: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 12,
   },
-  TextbS: {
-    marginBottom: 6,
-  },
-  TextInputDC: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 8,
-    paddingRight: 8,
-    paddingTop: 8,
-    paddingBottom: 8,
-    borderRadius: 8,
-    fontFamily: 'Montserrat_400Regular',
-  },
-  Textci: {
-    fontSize: 10,
-  },
-  Text_0m: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-  },
-  Viewc8: {
-    paddingLeft: 8,
-    paddingRight: 4,
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderBottomWidth: 1,
-  },
-  Viewmr: {
-    flex: 1,
-    marginRight: 24,
-  },
-  Textbc: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-  },
-  ViewRF: {
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-  },
-  TextwA: {
-    fontSize: 10,
-  },
-  ViewBF: {
-    flex: 1,
-  },
-  ViewtH: {
+  Viewdebd3207: {
     flexDirection: 'row',
-  },
-  TextnT: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-  },
-  TextInputsw: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  TextAn: {
-    fontSize: 10,
-  },
-  Text_4a: {
-    fontFamily: 'Montserrat_400Regular',
-    marginBottom: 6,
-  },
-  TextInputtx: {
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 8,
-  },
-  TextbO: {
-    fontSize: 10,
-  },
-  ButtonSolid_7S: {
-    borderRadius: 8,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-    paddingLeft: 16,
-  },
-  ButtonSolidCz: {
-    borderRadius: 8,
-    fontFamily: 'System',
-    fontWeight: '700',
-    textAlign: 'center',
-    paddingTop: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-    paddingLeft: 16,
-  },
-  TextRN: {
-    marginRight: 2,
-  },
-  View_1b: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  ViewiM: {
-    paddingLeft: 36,
-    paddingRight: 36,
-    flex: 1,
-  },
-  KeyboardAwareScrollViewXVContent: {
-    justifyContent: 'center',
-    flex: 1,
   },
 });
 

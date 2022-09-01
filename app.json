@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "City as a School",
-    "slug": "city-as-a-school",
-    "scheme": "city-as-a-school",
+    "slug": "cas-app",
+    "scheme": "cas-app",
     "description": "City as a School",
     "privacy": "unlisted",
     "platforms": [
@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.18.0",
     "orientation": "default",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -22,15 +22,15 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.draftbit.untitledapp",
+      "bundleIdentifier": "com.cas.app",
       "supportsTablet": false,
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.18.0",
       "infoPlist": {},
       "usesIcloudStorage": false
     },
     "android": {
-      "versionCode": 1,
-      "package": "com.draftbit.untitledapp",
+      "versionCode": 18,
+      "package": "com.cityasaschool.app",
       "permissions": []
     },
     "web": {
